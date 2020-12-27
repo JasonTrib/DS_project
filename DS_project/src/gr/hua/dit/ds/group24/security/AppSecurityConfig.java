@@ -11,45 +11,32 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-/*
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//
-//		// add our users for in memory authentication
-//		auth.inMemoryAuthentication().withUser("john").password("{noop}test123").roles("EMPLOYEE");
-//		auth.inMemoryAuthentication().withUser("mary").password("{noop}test123").roles("MANAGER");
-//		auth.inMemoryAuthentication().withUser("susan").password("{noop}test123").roles("ADMIN");
-//
-//	}
-//
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
-//				.loginProcessingUrl("/authUser").permitAll();
-//	}
-
 	@Autowired
 	DataSource dataSource;
+	
+	@Autowired
+	  private UserDetailsService userDetailsService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-				.usersByUsernameQuery("select username,password, enabled from user where username=?")
-				.authoritiesByUsernameQuery("select username, authority from authorities where username=?");
+	    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
 
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
+		http.authorizeRequests().antMatchers("/submission").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.loginProcessingUrl("/authUser").permitAll().and().logout().permitAll().and().exceptionHandling()
 				.accessDeniedPage("/403");
 
@@ -68,6 +55,4 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
-
 }
-*/

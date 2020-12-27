@@ -1,32 +1,45 @@
 package gr.hua.dit.ds.group24.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import gr.hua.dit.ds.group24.DAO.EmployeeDAO;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 	
-	@RequestMapping("/hi")
-	public String test() {
-		
-		System.out.println("loaded /hi");
-		
-		return "hello";
+	@GetMapping("/login")
+	public String showLogin() {
+		return "login";
 	}
 	
-	@Autowired
-    private EmployeeDAO employeeDAO;
-    
-    @RequestMapping("/create")
-    public String newEmployee(Model model) {
-    	
-            employeeDAO.createEmployee();
-            
-            return "hello";
-    }
+	@RequestMapping("")
+	public String showmainpage() {
+	        return "index";
+	}
+	
+	@GetMapping("/submission")
+	public String submission() {
+		return "submission-form";
+	}
+	
+	@GetMapping("/admin")
+	public String admin() {
+		return "temp";
+	}
+	
+	
+//	@RequestMapping("/processFormv2")
+//	public String processFormv2(HttpServletRequest request, Model model) {
+//	   String theName = request.getParameter("studentName");
+//	   theName = theName.toUpperCase();
+//	   String result ="Hello " + theName;
+//	   model.addAttribute("message",result);
+//	   return "helloworld";
+//	}
+	
+	
 }

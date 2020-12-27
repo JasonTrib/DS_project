@@ -7,4 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/supervisor")
 public class SupervisorController {
 
+	@RequestMapping("")
+	public String showfirstpage() {
+	        return "temp";
+	}
+	
 }
