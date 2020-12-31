@@ -10,7 +10,6 @@ import gr.hua.dit.ds.group24.entity.User;
 @Repository
 public class UserDetailsDaoImp implements UserDetailsDao {
 
-	// inject the session factory
 	@Autowired
 	private SessionFactory sessionFactory;
 

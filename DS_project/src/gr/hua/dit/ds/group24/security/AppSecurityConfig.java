@@ -36,9 +36,14 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/submission").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
-				.loginProcessingUrl("/authUser").permitAll().and().logout().permitAll().and().exceptionHandling()
-				.accessDeniedPage("/403");
+		http.authorizeRequests()
+			.antMatchers("/submission").permitAll()
+			.antMatchers("/admin").hasRole("ADMIN")
+			.antMatchers("/manager").hasAnyRole("ADMIN", "MANAGER")
+			.antMatchers("/supervisor").hasAnyRole("ADMIN", "SUPERVISOR")
+			.antMatchers("/employee").hasAnyRole("ADMIN", "EMPLOYEE")
+			.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/authUser")
+			.permitAll().and().logout().permitAll().and().exceptionHandling().accessDeniedPage("/403");
 
 	}
 

@@ -1,12 +1,18 @@
 package gr.hua.dit.ds.group24.entity;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,9 +41,67 @@ public class User {
 	@Column(name = "ps_id")
 	private Integer psid;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL )
 	private Set<Authorities> authorities = new HashSet<>();
+	
 
+	
+	
+	public User() {
+		super();
+	}
+	
+	
+
+	public User(String username) {
+		super();
+		this.username = username;
+	}
+
+	public User(String username, String password, String fullname, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.email = email;
+	}
+
+	public User(String username, String password, String fullname, String title, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.title = title;
+		this.email = email;
+	}
+	
+	public User(String username, String password, boolean enabled, String fullname, String title, String email,
+			Integer psid) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.fullname = fullname;
+		this.title = title;
+		this.email = email;
+		this.psid = psid;
+	}
+	
+	public User(String username, String password, boolean enabled, String fullname, String title, String email,
+			Integer psid, Set<Authorities> authorities) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.fullname = fullname;
+		this.title = title;
+		this.email = email;
+		this.psid = psid;
+		this.authorities = authorities;
+	}
+
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -101,4 +165,12 @@ public class User {
 		this.authorities = authorities;
 	}
 
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", fullname="
+				+ fullname + ", title=" + title + ", email=" + email + ", psid=" + psid + ", authorities=" + authorities
+				+ "]";
+	}
+	
+	
 }
