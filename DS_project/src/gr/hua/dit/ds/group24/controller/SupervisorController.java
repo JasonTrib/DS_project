@@ -1,14 +1,9 @@
 package gr.hua.dit.ds.group24.controller;
 
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,27 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gr.hua.dit.ds.group24.DAO.AuthoritiesDAO;
+import gr.hua.dit.ds.group24.DAO.PublicServiceDAO;
 import gr.hua.dit.ds.group24.DAO.UserDAO;
-import gr.hua.dit.ds.group24.DAO.UserDetailsDao;
 import gr.hua.dit.ds.group24.entity.Authorities;
+import gr.hua.dit.ds.group24.entity.PublicService;
 import gr.hua.dit.ds.group24.entity.User;
-import gr.hua.dit.ds.group24.service.UserService;
+import gr.hua.dit.ds.group24.service.EntitiesService;
 
 @Controller
 @RequestMapping("/supervisor")
 public class SupervisorController {
+	@Autowired
+	private PublicServiceDAO psDAO;
 	
 	@Autowired
-    public UserDAO userDAO;
+	private UserDAO userDAO;
 	
 	@Autowired
-	public UserDetailsDao userDetailsDAO;
+	private AuthoritiesDAO authDAO;
 	
 	@Autowired
-	public AuthoritiesDAO authoritiesDAO;
-	
-	@Autowired
-	public UserService userService;
+	private EntitiesService entitiesService;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -47,7 +42,6 @@ public class SupervisorController {
 	@RequestMapping("")
 	public String showfirstpage(Model model) {
 		model.addAttribute("pageTitle", "supervisor menu");
-		
 		return "supervisor/supervisor-menu";
 	}
 	
@@ -62,76 +56,66 @@ public class SupervisorController {
 			employees = userDAO.getEmployees();
 		}else {
 			//get customers with corresponding psid
-	        employees = userDAO.getEmployees(thisUser.getPsid());
+			employees = userDAO.getEmployees(thisUser.getPs().getId());
 		}
-        // add the customers to the model
         model.addAttribute("employees",employees);
-        
-		return "supervisor/view-employees";
+		return "supervisor/list-employees";
 	}
-
 
 	@GetMapping("/deleteEmployee")
 	public String deleteEmployee(Model model, @RequestParam("username") String username) {
 		userDAO.deleteUser(username);
-
 		return "redirect:/supervisor";
 	}
 	
 	@GetMapping("/editEmployee")
 	public String editEmployee(Model model,@RequestParam("username") String username) {
 		model.addAttribute("pageTitle", "edit employee");
-		
-		User employee =  userDAO.getEmployee(username);
+		User employee =  userDAO.getUserByUsername(username);
 		model.addAttribute(employee);
-		
 		return "supervisor/edit-employee-form";
 	}
 	
 	@PostMapping("/editEmployeeForm")
 	public String editEmployeeForm(Model model, @ModelAttribute("user") User e) {
-		
 		if(e.getPassword().trim().length()<3) {
 			model.addAttribute("pageTitle", "edit employee");
 			model.addAttribute("inputError", true);
 			return "supervisor/edit-employee-form";
 		}
-		
-		User employee = new User(e.getUsername(),encoder.encode(e.getPassword()),e.getFullname(),e.getEmail());
-		System.out.println("altered employee:"+employee.toString());
-		userDAO.updateEmployee(employee);
-		
+		e.setPassword(encoder.encode(e.getPassword()));
+		userDAO.updateUser(e);
 		return "redirect:/supervisor";
 	}
 	
 	@PostMapping("/createEmployeeForm")
-	public String createEmployeeForm(Model model, @ModelAttribute("user") User e, Authentication authent) {
-		
+	public String createEmployeeForm(Model model, @RequestParam(value="psid", required=false) Integer psid, @ModelAttribute("user") User e, Authentication authent) {
 		User thisUser = userDAO.getUserByUsername(authent.getName());
-		
 		if(e.getUsername().trim().length()<3 || e.getPassword().trim().length()<3) {
 			model.addAttribute("pageTitle", "create employee");
 			model.addAttribute("inputError", true);
 			return "supervisor/create-employee-form";
 		}
-		
 		User employee;
 		if(thisUser.getTitle().equals("Admin")) {
-			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), e.getPsid());
+			PublicService ps = psDAO.getPublicService(psid);
+			if(!ps.isValidated()) {
+				model.addAttribute("pageTitle", "create employee");
+				model.addAttribute("inputError2", true);
+				return "supervisor/create-employee-form";
+			}
+			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), ps);
 		}else {
-			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), thisUser.getPsid());
+			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), thisUser.getPs());
 		}
 		Authorities auth = new Authorities("ROLE_EMPLOYEE",employee);
-		//employee.setAuthorities((Set<Authorities>)new HashSet<>(Arrays.asList(auth)));
-		userService.saveUserAuthorities(employee,auth);
-		
+		entitiesService.saveUserAuthorities(employee,auth);
 		return "redirect:/supervisor";
 	}
 	
 	@RequestMapping("/createEmployee")
 	public String createEmployee(Model model) {
 		model.addAttribute("pageTitle", "create employee");
-
 		return "supervisor/create-employee-form";
 	}
 	

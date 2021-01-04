@@ -7,25 +7,22 @@
 
 <div id="container">
 	<div id="content">
-		<!--  add our html table here -->
 		<table>
 			<tr>
+				<th>Public_Service</th>
 				<th>Username</th>
 				<th>Full_Name</th>
 				<th>Title</th>
 				<th>Email</th>
-				<th>PS_ID</th>
-				<!-- ps name, edit button, delete button-->
 			</tr>
-			<!-- loop over and print our employees -->
 			<c:forEach var="employee" items="${employees}">
 
 				<tr>
+					<td>${employee.ps.name}</td>
 					<td>${employee.username}</td>
 					<td>${employee.fullname}</td>
 					<td>${employee.title}</td>
 					<td>${employee.email}</td>
-					<td>${employee.psid}</td>
 					<td><form
 							action="${pageContext.request.contextPath}/supervisor/editEmployee"
 							method="get">

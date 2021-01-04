@@ -1,5 +1,9 @@
 
-<h1>Supervisor Menu</h1>
+<div id="wrapper">
+	<div id="header">
+		<h2>Supervisor Menu</h2>
+	</div>
+</div>
 
 <h5>
 <a href="${pageContext.request.contextPath}/supervisor/employees" class="button">List Employees</a>

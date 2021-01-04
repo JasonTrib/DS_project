@@ -19,55 +19,52 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public List<User> getUsers() {
-		// get current hibernate session
-        Session currentSession = sessionFactory.getCurrentSession();
-        // create a query
-        Query<User> query = currentSession.createQuery("from User", User.class);
-        // execute the query and get the results list
-        List<User> users = query.getResultList();
-        
-        return users;
-	}
-	
-	@Override
-	@Transactional
 	public User getUserByUsername(String username) {
 		return sessionFactory.getCurrentSession().get(User.class, username);
 	}
 	
 	@Override
 	@Transactional
+	public List<User> getUsers() {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("from User", User.class);
+        return query.getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public List<User> getManagers() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<User> query = session.createQuery("from User where title='Manager'", User.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public List<User> getSupervisors() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<User> query = session.createQuery("from User where title='Supervisor'", User.class);	
+		return query.getResultList();		
+	}
+	
+	@Override
+	@Transactional
 	public List<User> getEmployees() {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<User> query = currentSession.createQuery("from User where title='Employee'", User.class);
-        List<User> employees = query.getResultList();
-        
-        return employees;
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("from User where title='Employee'", User.class);
+        return query.getResultList();
 	}
 	
 	@Override
 	@Transactional
 	public List<User> getEmployees(Integer psid){
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<User> query = currentSession.createQuery("from User where title='Employee'and ps_id='"+psid+"'", User.class);
-        List<User> employees = query.getResultList();
-        
-        return employees;
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("from User where title='Employee'and ps_id='"+psid+"'", User.class);
+        return query.getResultList();
 	}
 	
 	@Override
 	@Transactional
-	public User getEmployee(String username) {
-		Session currentSession = sessionFactory.getCurrentSession();
-        Query<User> query = currentSession.createQuery("from User where username='"+username+"'", User.class);
-        User employee = query.getResultList().get(0);
-        
-		return employee;
-	}
-	
-	@Override
-//	@Transactional
 	public void saveUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
@@ -75,9 +72,9 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	@Transactional
-	public void updateEmployee(User e) {
+	public void updateUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		session.createQuery("update User set password='"+e.getPassword()+"',fullname='"+e.getFullname()+"',email='"+e.getEmail()+"'  where username='"+e.getUsername()+"'").executeUpdate();
+		session.createQuery("update User set password='"+user.getPassword()+"',fullname='"+user.getFullname()+"',title='"+user.getTitle()+"',email='"+user.getEmail()+"'  where username='"+user.getUsername()+"'").executeUpdate();
 	}
 	
 	@Override
@@ -87,5 +84,13 @@ public class UserDAOImpl implements UserDAO {
 		User user = session.get(User.class, username);
 		session.delete(user);
 	}
-
+	
+	@Override
+	@Transactional
+	public List<User> getSubmissions() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<User> query = session.createQuery("from User where title='User' and ps.validated=0", User.class);
+		return query.getResultList();
+	}
+	
 }

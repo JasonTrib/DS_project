@@ -1,10 +1,14 @@
 package gr.hua.dit.ds.group24.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,18 +18,22 @@ public class PublicService {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "appointment_room")
-	private String AppointmentRoom;
-	
+	private String appointmentRoom;
+
 	@Column(name = "validated")
 	private boolean validated;
+
+	@OneToMany(mappedBy = "ps", cascade = CascadeType.ALL)
+	private List<User> users;
+	
 	
 	
 	public PublicService() {
@@ -36,10 +44,11 @@ public class PublicService {
 		super();
 		this.name = name;
 		this.address = address;
-		AppointmentRoom = appointmentRoom;
+		this.appointmentRoom = appointmentRoom;
 		this.validated = validated;
 	}
-
+	
+	
 	
 	public int getId() {
 		return id;
@@ -66,11 +75,11 @@ public class PublicService {
 	}
 
 	public String getAppointmentRoom() {
-		return AppointmentRoom;
+		return appointmentRoom;
 	}
 
 	public void setAppointmentRoom(String appointmentRoom) {
-		AppointmentRoom = appointmentRoom;
+		this.appointmentRoom = appointmentRoom;
 	}
 
 	public boolean isValidated() {
@@ -81,11 +90,20 @@ public class PublicService {
 		this.validated = validated;
 	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	
 	
 	@Override
 	public String toString() {
-		return "PublicService [id=" + id + ", name=" + name + ", address=" + address + ", AppointmentRoom="
-				+ AppointmentRoom + ", validated=" + validated + "]";
+		return "PublicService [id=" + id + ", name=" + name + ", address=" + address + ", appointmentRoom="
+				+ appointmentRoom + ", validated=" + validated + ", users=" + users + "]";
 	}
 	
 }
