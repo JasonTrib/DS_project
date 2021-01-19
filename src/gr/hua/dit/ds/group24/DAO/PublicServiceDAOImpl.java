@@ -29,7 +29,7 @@ public class PublicServiceDAOImpl implements PublicServiceDAO {
 	@Transactional
 	public PublicService getPublicService(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<PublicService> query = session.createQuery("from PublicService where id='"+id+"'", PublicService.class);
+		Query<PublicService> query = session.createQuery("from PublicService where id='"+id+"' and validated=1", PublicService.class);
 		return query.getResultList().get(0);
 	}
 

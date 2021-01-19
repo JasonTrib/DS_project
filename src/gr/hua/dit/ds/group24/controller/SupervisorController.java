@@ -99,11 +99,11 @@ public class SupervisorController {
 		User employee;
 		if(thisUser.getTitle().equals("Admin")) {
 			PublicService ps = psDAO.getPublicService(psid);
-			if(!ps.isValidated()) {
-				model.addAttribute("pageTitle", "create employee");
-				model.addAttribute("inputError2", true);
-				return "supervisor/create-employee-form";
-			}
+//			if(!ps.isValidated()) {
+//				model.addAttribute("pageTitle", "create employee");
+//				model.addAttribute("inputError2", true);
+//				return "supervisor/create-employee-form";
+//			}
 			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), ps);
 		}else {
 			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), thisUser.getPs());

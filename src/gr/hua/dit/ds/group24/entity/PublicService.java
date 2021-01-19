@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "public_service")
 public class PublicService {
@@ -31,6 +33,7 @@ public class PublicService {
 	@Column(name = "validated")
 	private boolean validated;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "ps", cascade = CascadeType.ALL)
 	private List<User> users;
 	
