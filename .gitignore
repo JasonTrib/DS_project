@@ -6,3 +6,4 @@
 .project
 .settings/
 application.properties
+/bin/
