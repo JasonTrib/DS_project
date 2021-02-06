@@ -25,4 +25,4 @@
 </form:form>
 
 <br/>
-<a href="${pageContext.request.contextPath}/supervisor" class="button">Cancel</a>
+<form action="${pageContext.request.contextPath}/supervisor/employees"><input type="submit" value="Cancel" /></form>

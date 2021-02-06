@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.group24.DAO;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,12 +50,12 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	@Transactional
 	public void updateAppointment(Appointment appoint) {
 		
-		String a = DateUtils.formatDate(appoint.getDate());
-		
+//		String a = DateUtils.formatDate(appoint.getDate());///////////////////////////////////////////////////////////////////////////////////
 //		System.out.println(">>>>>"+appoint.getDate()+" <<>> "+a);///////////////////////////////////////////////////////////////////////////////////
-
+		
+		String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(appoint.getDate());
 		Session session = sessionFactory.getCurrentSession();
-		session.createQuery("update Appointment set date='"+a+"' where id='"+appoint.getId()+"'").executeUpdate();
+		session.createQuery("update Appointment set date='"+date+"' where id='"+appoint.getId()+"'").executeUpdate();
 	}
 	
 	@Override
@@ -63,5 +64,20 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Appointment appointment = session.get(Appointment.class, id);
 		session.delete(appointment);
+	}
+	
+	@Override
+	@Transactional
+	public List<Appointment> getCitizenAppointments(String name) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Appointment> query = session.createQuery("from Appointment "+"where citizen_name='"+name+"'", Appointment.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public void deletePublicServiceAppointments(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("delete from Appointment where ps_id='"+id+"'").executeUpdate();
 	}
 }

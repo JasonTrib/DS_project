@@ -8,4 +8,5 @@ public interface EntitiesService {
 	public void savePublicServiceUser(PublicService ps, User user);
 	public void saveUserAuthorities(User user, Authorities auth);
 	public void acceptSubmission(PublicService ps, User user);
+	public void deletePublicServiceAppointment(Integer id);
 }

@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,12 +34,20 @@ public class PublicService {
 
 	@Column(name = "validated")
 	private boolean validated;
+	
+	@Column(name = "schedule")
+	private String schedule;
+	
+	@Column(name = "postcode")
+	private int postcode;
+	
+	@Column(name = "call_center")
+	private int callCenter;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "ps", cascade = CascadeType.ALL)
 	private List<User> users;
-	
-	
+
 	
 	public PublicService() {
 		super();
@@ -50,7 +60,19 @@ public class PublicService {
 		this.appointmentRoom = appointmentRoom;
 		this.validated = validated;
 	}
-	
+
+	public PublicService(String name, String address, String appointmentRoom, boolean validated, String schedule,
+			int postcode, int callCenter) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.appointmentRoom = appointmentRoom;
+		this.validated = validated;
+		this.schedule = schedule;
+		this.postcode = postcode;
+		this.callCenter = callCenter;
+	}
+
 	
 	
 	public int getId() {
@@ -100,13 +122,37 @@ public class PublicService {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-
 	
+	public String getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(String schedule) {
+		this.schedule = schedule;
+	}
+
+	public int getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(int postcode) {
+		this.postcode = postcode;
+	}
+
+	public int getCallCenter() {
+		return callCenter;
+	}
+
+	public void setCallCenter(int callCenter) {
+		this.callCenter = callCenter;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "PublicService [id=" + id + ", name=" + name + ", address=" + address + ", appointmentRoom="
-				+ appointmentRoom + ", validated=" + validated + ", users=" + users + "]";
+				+ appointmentRoom + ", validated=" + validated + ", schedule=" + schedule + ", postcode=" + postcode
+				+ ", callCenter=" + callCenter + ", users=" + users + "]";
 	}
 	
 }

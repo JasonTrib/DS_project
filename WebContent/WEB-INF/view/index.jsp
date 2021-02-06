@@ -8,13 +8,17 @@
 </sec:authorize>
 
 <sec:authorize access="hasRole('MANAGER')">
-<h5><a href="<c:url value="/manager"></c:url>">Manager Menu</a></h5>
+<br/>
+<form action="${pageContext.request.contextPath}/manager"><input type="submit" value="Manager Menu" /></form>
 </sec:authorize>
 
 <sec:authorize access="hasRole('SUPERVISOR')">
-<h5><a href="<c:url value="/supervisor"></c:url>">Supervisor Menu</a></h5>
+<br/>
+<form action="${pageContext.request.contextPath}/supervisor"><input type="submit" value="Supervisor Menu" /></form>
 </sec:authorize>
 
 <sec:authorize access="hasRole('EMPLOYEE')">
-<h5><a href="<c:url value="/employee"></c:url>">Employee Menu</a></h5>
+<br/>
+<form action="${pageContext.request.contextPath}/employee"><input type="submit" value="Employee Menu" /></form>
 </sec:authorize>
+

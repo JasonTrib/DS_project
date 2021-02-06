@@ -6,40 +6,50 @@
 
 <sec:authorize access="!hasAnyRole('MANAGER','SUPERVISOR','EMPLOYEE')">
 
-	<h2>Enter Public Service and Supervisor information</h2>
+	<h3>Enter Public Service and Supervisor information</h3>
 
-	<div class="form-group">
-		<form:form action="${pageContext.request.contextPath}/submission" method="POST">
+	<form:form action="${pageContext.request.contextPath}/submission" method="POST">
 
-			<label class="form-label">Public Service Name</label>
-			<input type="text" name="name" placeholder="name" />
+		<br/><h4><label class="form-label">Public Service:</label></h4>
 
-			<label class="form-label">Public Service Address</label>
-			<input type="text" name="address" placeholder="address" />
+		<label class="form-label">Name</label>
+		<input type="text" name="name" placeholder="name" />
 
-			<label class="form-label">Public Service Appointment Room</label>
-			<input type="text" name="appointmentRoom" placeholder="appointment room" />
+		<label class="form-label">Address</label>
+		<input type="text" name="address" placeholder="address" />
+		
+		<label class="form-label">Schedule</label>
+		<input type="text" name="schedule" placeholder="schedule" />
 
-			<label class="form-label">Supervisor Username</label>
-			<input type="text" name="username" placeholder="username" />
+		<label class="form-label">Appointment Room</label>
+		<input type="text" name="appointmentRoom" placeholder="appointment room" />
+		
+		<label class="form-label">Postcode</label>
+		<input type="number" name="postcode" placeholder="postcode" />
+		
+		<label class="form-label">Call Center</label>
+		<input type="number" name="callCenter" placeholder="call center" />
 
-			<label class="form-label">Supervisor Password</label>
-			<input type="password" name="password" placeholder="password" />
+		<br/><br/><h4><label class="form-label">Supervisor:</label></h4>
 
-			<label class="form-label">Supervisor Full Name</label>
-			<input type="text" name="fullname" placeholder="full name" />
+		<label class="form-label">Username</label>
+		<input type="text" name="username" placeholder="username" />
 
-			<label class="form-label">Supervisor Email</label>
-			<input type="text" name="email" placeholder="email" />
+		<label class="form-label">Password</label>
+		<input type="password" name="password" placeholder="password" />
 
-			<label class="form-label"></label>
-			<input type="submit" />
+		<label class="form-label">Full Name</label>
+		<input type="text" name="fullname" placeholder="full name" />
 
-		</form:form>
-	</div>
+		<label class="form-label">Email</label>
+		<input type="text" name="email" placeholder="email" />
+
+		<br/><br/><label class="form-label"></label>
+		<input type="submit" />
+
+	</form:form>
 
 	<br/>
-	<br/>
-	<h5><a href="<c:url value="/"></c:url>">Cancel</a></h5>
+	<form action="<c:url value="/"></c:url>"><input type="submit" value="Cancel" /></form>
 
 </sec:authorize>

@@ -65,7 +65,7 @@ public class SupervisorController {
 	@GetMapping("/deleteEmployee")
 	public String deleteEmployee(Model model, @RequestParam("username") String username) {
 		userDAO.deleteUser(username);
-		return "redirect:/supervisor";
+		return "redirect:/supervisor/employees";
 	}
 	
 	@GetMapping("/editEmployee")
@@ -85,7 +85,7 @@ public class SupervisorController {
 		}
 		e.setPassword(encoder.encode(e.getPassword()));
 		userDAO.updateUser(e);
-		return "redirect:/supervisor";
+		return "redirect:/supervisor/employees";
 	}
 	
 	@PostMapping("/createEmployeeForm")

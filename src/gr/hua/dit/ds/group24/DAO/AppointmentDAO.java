@@ -10,4 +10,6 @@ public interface AppointmentDAO {
 	public void saveAppointment(Appointment appoint);
 	public void updateAppointment(Appointment appoint);
 	public void deleteAppointment(Integer id);
+	public List<Appointment> getCitizenAppointments(String name);
+	public void deletePublicServiceAppointments(Integer id);
 }

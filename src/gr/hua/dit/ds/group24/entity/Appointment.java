@@ -29,8 +29,12 @@ public class Appointment {
 	@Column(name = "ps_id")
 	private int psid;
 	
-	@Column(name = "citizen_id")
-	private int citizenid;
+	@Column(name = "citizen_name")
+	private String citizenName;
+	
+	@Column(name = "citizen_email")
+	private String citizenEmail;
+	
 	
 	
 	public Appointment() {
@@ -44,7 +48,7 @@ public class Appointment {
 		this.psid = psid;
 	}
 	
-
+	
 	public int getId() {
 		return id;
 	}
@@ -77,26 +81,27 @@ public class Appointment {
 		this.psid = psid;
 	}
 	
-	public int getCitizenid() {
-		return citizenid;
+	public String getCitizenName() {
+		return citizenName;
 	}
 
-	public void setCitizenid(int citizenid) {
-		this.citizenid = citizenid;
+	public void setCitizenName(String citizenName) {
+		this.citizenName = citizenName;
 	}
 
-	
+	public String getCitizenEmail() {
+		return citizenEmail;
+	}
+
+	public void setCitizenEmail(String citizenEmail) {
+		this.citizenEmail = citizenEmail;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "Appointment [id=" + id + ", date=" + date + ", validated=" + validated + ", psid=" + psid
-				+ ", citizenid=" + citizenid + "]";
+				+ ", citizenName=" + citizenName + ", citizenEmail=" + citizenEmail + "]";
 	}
-
-//	@Override
-//	public String toString() {
-//		return "Appointment [id=" + id + ", date=" + date + ", validated=" + validated + ", psid=" + psid + "]";
-//	}
-	
 	
 }

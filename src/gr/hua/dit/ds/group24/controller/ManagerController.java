@@ -85,26 +85,27 @@ public class ManagerController {
 		}
 		user.setPassword(encoder.encode(user.getPassword()));
 		userDAO.updateUser(user);
-		return "redirect:/manager";	
+		return "redirect:/manager/supervisors-list";	
 	}
 	
 	@GetMapping("/delete-publicservice")
 	public String deleteps(@RequestParam("id") Integer id) {
-		psDAO.deletePublicService(id);
-		return "redirect:/manager";
+		entitiesService.deletePublicServiceAppointment(id);
+//		psDAO.deletePublicService(id);
+		return "redirect:/manager/pservice-list";
 	}
 	
 	@GetMapping("/accept-submission")
 	public String acceptsm(@RequestParam("username") String username) {
 		User user = userDAO.getUserByUsername(username);
 		entitiesService.acceptSubmission(user.getPs(),user);
-		return "redirect:/manager";
+		return "redirect:/manager/submissions-list";
 	}
 	
 	@GetMapping("/reject-submission")
 	public String rejectsm(@RequestParam("id") Integer id) {
 		psDAO.rejectSubmission(id);
-		return "redirect:/manager";
+		return "redirect:/manager/submissions-list";
 	}
 	
 	@RequestMapping("/managers-list")

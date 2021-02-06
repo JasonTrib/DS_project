@@ -46,12 +46,12 @@ public class CitizenRestController {
 	
 	@GetMapping("/appointments")
 	public List<Appointment> appointments() {
-		//return appointDAO.getAppointments();
-		List<Appointment> appoints = appointDAO.getAppointments();
-		for (Appointment var : appoints) { 
-			System.out.println(DateUtils.formatDate(var.getDate()));
-		}
-		return appoints;
+		return appointDAO.getAppointments();
+//		List<Appointment> appoints = appointDAO.getAppointments();
+//		for (Appointment var : appoints) { 
+//			System.out.println(DateUtils.formatDate(var.getDate()));
+//		}
+//		return appoints;
 	}
 
 	@GetMapping("/appointments/{appointId}")
@@ -65,11 +65,6 @@ public class CitizenRestController {
 	
 	@PostMapping("/appointments")
 	public Appointment addAppointment(@RequestBody Appointment theAppointment) {
-		/*
-		 * also just in case the pass an id in JSON ... set id to 0 this is force a save
-		 * of new item ... instead of update sample data (raw-application/json) {
-		 * "firstName": "Alekos", "lastName": "Sakellarios", "email": "alekos@hua.gr" }
-		 */
 		theAppointment.setId(0);
 		appointDAO.saveAppointment(theAppointment);
 		return theAppointment;
@@ -77,10 +72,6 @@ public class CitizenRestController {
 	
 	@PutMapping("/appointments")
 	public Appointment updateCustomer(@RequestBody Appointment theAppointment) {
-		/*
-		 * sample data (raw-application/json) { "id": "7", "firstName": "Alekos-New",
-		 * "lastName": "Sakellarios", "email": "alekos@hua.gr" }
-		 */
 		appointDAO.updateAppointment(theAppointment);
 		return theAppointment;
 	}
@@ -93,6 +84,12 @@ public class CitizenRestController {
 		}
 		appointDAO.deleteAppointment(appointId);
 		return "Deleted appointment id - " + appointId;
+	}
+	
+	@GetMapping("/appointments/search/{name}")
+	public List<Appointment> getCitizenAppointments(@PathVariable String name) {
+		List<Appointment> appoints = appointDAO.getCitizenAppointments(name);
+		return appoints;
 	}
 	
 }

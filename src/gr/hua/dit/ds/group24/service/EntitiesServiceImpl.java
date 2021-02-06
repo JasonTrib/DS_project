@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gr.hua.dit.ds.group24.DAO.AppointmentDAO;
 import gr.hua.dit.ds.group24.DAO.AuthoritiesDAO;
 import gr.hua.dit.ds.group24.DAO.PublicServiceDAO;
 import gr.hua.dit.ds.group24.DAO.UserDAO;
@@ -22,6 +23,9 @@ public class EntitiesServiceImpl implements EntitiesService {
 	
 	@Autowired
 	private AuthoritiesDAO authDAO;
+	
+	@Autowired
+	private AppointmentDAO appointDAO;
 	
 	@Transactional
 	public void savePublicServiceUser(PublicService ps,User user) {
@@ -43,5 +47,11 @@ public class EntitiesServiceImpl implements EntitiesService {
 		Authorities auth = new Authorities("ROLE_SUPERVISOR",user);
 		userDAO.updateUser(user);
 		authDAO.saveAuthority(auth);
+	}
+	
+	@Transactional
+	public void deletePublicServiceAppointment(Integer id){
+		appointDAO.deletePublicServiceAppointments(id);
+		psDAO.deletePublicService(id);
 	}
 }

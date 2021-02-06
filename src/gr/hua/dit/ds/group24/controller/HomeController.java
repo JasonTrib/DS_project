@@ -56,7 +56,7 @@ public class HomeController {
 	
 	@PostMapping("/submission")
 	public String savePs(@ModelAttribute("publicservice") PublicService ps, @ModelAttribute("user") User user) {
-		PublicService ps1 = new PublicService(ps.getName(), ps.getAddress(), ps.getAppointmentRoom(), false);
+		PublicService ps1 = new PublicService(ps.getName(), ps.getAddress(), ps.getAppointmentRoom(), false, ps.getSchedule(), ps.getPostcode(),ps.getCallCenter());
 		User user1 = new User(user.getUsername(), encoder.encode(user.getPassword()), true, user.getFullname(), "User", user.getEmail(), ps1);
 		entitiesService.savePublicServiceUser(ps1,user1);
 		return "redirect:/";
