@@ -63,6 +63,9 @@ CREATE TABLE IF NOT EXISTS `public_service` (
 `address` varchar(100) DEFAULT NULL,
 `appointment_room` varchar(25) DEFAULT NULL,
 `validated` boolean NOT NULL DEFAULT 0,
+`schedule` varchar(100),
+`postcode` int(5),
+`call_center` int(10),
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -71,6 +74,8 @@ CREATE TABLE IF NOT EXISTS `appointment` (
 `date` DATETIME(0) DEFAULT NULL,
 `validated` boolean NOT NULL DEFAULT 0,
 `ps_id` int(11) NOT NULL,
+`citizen_name` varchar(50) NOT NULL,
+`citizen_email` varchar(50),
 PRIMARY KEY (`id`),
 CONSTRAINT `FK_appointment_ps` FOREIGN KEY (`ps_id`)
 REFERENCES `public_service` (`id`)
@@ -98,13 +103,19 @@ CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`)
 REFERENCES `user` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `public_service` (`id`,`name`,`address`,`appointment_room`,`validated`,`schedule`,`postcode`,`call_center`) VALUES
+(1, 'ΕΦΚΑ', 'Solonos 132', 'C02', 1, 'Mon-Fri, 8:00-14:00 ', 14232, 2102344092),
+(2, 'ΔΟΥ', 'Delfi 45', 'A08', 1, 'Mon-Fri, 8:00-14:30 ', 16156, 2102624583),
+(3, 'ΙΚΑ', 'Makrygianni 98', 'A5', 0, 'Mon-Fri, 7:20-14:30 ', 11331, 2102400184),
+(4, 'ΤΕΒΕ', 'Egnatias 17', 'B1', 0, 'Mon-Fri, 8:00-14:30 ', 12398, 2102210730),
+(5, 'ΚΕΠ', 'Egnatias 17', '-', 1, 'Mon-Fri, 8:00-20:00 ', 14466, 2102558148);
 
-INSERT INTO `public_service` (`id`,`name`,`address`,`appointment_room`,`validated`) VALUES
-(1, 'EFKA', 'Solonos 132', '4.2', 1),
-(2, 'DOY', 'Delfi 45', '2.8', 1),
-(3, 'IKA', 'Makrygianni 98', '2.5', 0),
-(4, 'TEVE', 'Egnatias 17', '3.1', 0);
-
+INSERT INTO `appointment` (`id`, `date`, `validated`, `ps_id`, `citizen_name`, `citizen_email`) VALUES
+(1, '2021-03-20 07:30:00', 1, 1, 'George Green', 'georgeg@email.com'),
+(2, '2021-03-15 09:00:00', 1, 2, 'Barry Brown', 'barrybrown@email.com'),
+(3, '2021-03-10 07:00:00', 1, 2, 'George Green', 'georgeg@email.com'),
+(4, '2021-03-26 11:15:00', 0, 1, 'George Green', 'georgeg@email.com'),
+(5, '2021-04-15 14:00:00', 0, 1, 'Whitney White', 'wwhite@email.com');
 
 INSERT INTO `user` (`username`, `password`, `enabled`, `fullname`, `title`, `email`, `ps_id`) VALUES
 ('root', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Root Admin', 'Admin', null, null),
@@ -119,8 +130,8 @@ INSERT INTO `user` (`username`, `password`, `enabled`, `fullname`, `title`, `ema
 ('evan', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Evan Dayton', 'Employee', 'evand@email.com', 2),
 ('emily', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Emily Hale', 'Employee', 'emilyh@email.com', 2),
 ('chris', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Chris Cooper', 'User', 'chris@email.com', 3),
-('tim', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Timothy Anderson', 'User', 'timand@email.com', 4);
-
+('tim', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Timothy Anderson', 'User', 'timand@email.com', 4),
+('sean', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1, 'Sean Beck', 'Supervisor', 'seanbeck@email.com', 5);
 
 INSERT INTO `authorities` (`username`, `authority`) VALUES
 ('root', 'ROLE_ADMIN'),
@@ -136,16 +147,6 @@ INSERT INTO `authorities` (`username`, `authority`) VALUES
 ('mary', 'ROLE_EMPLOYEE'),
 ('david', 'ROLE_SUPERVISOR'),
 ('evan', 'ROLE_EMPLOYEE'),
-('emily', 'ROLE_EMPLOYEE');
-
-
-CREATE TABLE IF NOT EXISTS `appointment` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`date` DATETIME(0) DEFAULT NULL,
-`validated` boolean NOT NULL DEFAULT 0,
-`ps_id` int(11) NOT NULL,
-PRIMARY KEY (`id`),
-CONSTRAINT `FK_appointment_ps` FOREIGN KEY (`ps_id`)
-REFERENCES `public_service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+('emily', 'ROLE_EMPLOYEE'),
+('sean', 'ROLE_SUPERVISOR');
 ```
