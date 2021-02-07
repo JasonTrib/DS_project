@@ -1,6 +1,6 @@
 
 <sec:authorize access="hasAnyRole('MANAGER','SUPERVISOR','EMPLOYEE')">
-	<h5><b>ERROR:</b> Could not access target resource. Sorry!</h5>
+	<h1>Could not access target resource.</h1>
 </sec:authorize>
 
 
@@ -11,6 +11,10 @@
 	<form:form action="${pageContext.request.contextPath}/submission" method="POST">
 
 		<br/><h4><label class="form-label">Public Service:</label></h4>
+		
+			<c:if test="${inputError==true}">
+				<i>Error! Name is too short/empty.</i>
+			</c:if>
 
 		<label class="form-label">Name</label>
 		<input type="text" name="name" placeholder="name" />
@@ -31,6 +35,10 @@
 		<input type="number" name="callCenter" placeholder="call center" />
 
 		<br/><br/><h4><label class="form-label">Supervisor:</label></h4>
+		
+		<c:if test="${inputError2==true}">
+			<i>Error! Username/password is too short/empty.</i>
+		</c:if>
 
 		<label class="form-label">Username</label>
 		<input type="text" name="username" placeholder="username" />

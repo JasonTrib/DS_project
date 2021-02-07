@@ -7,7 +7,7 @@
 	<input type="text" name="id" value="${appointment.id}" readonly/>
 		
 	<label class="form-label" for="meeting-time">Appointment Date</label>
-	<input type="datetime-local" id="meeting-time" name="meeting-time" value="2021-01-01T01:30" min="2021-01-01T00:00" max="2021-12-31T00:00">
+	<input type="datetime-local" id="meeting-time" name="meeting-time" value="2021-03-01T09:00" min="2021-03-01T00:00" max="2021-12-31T00:00">
 	
 	<label class="form-label">Public Service Id</label>
 	<input type="text" name="psid" value="${appointment.psid}" readonly/>

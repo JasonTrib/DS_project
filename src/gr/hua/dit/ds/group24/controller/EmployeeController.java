@@ -3,6 +3,7 @@ package gr.hua.dit.ds.group24.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -93,7 +94,6 @@ public class EmployeeController {
 		return "employee/modify-appointment";
 	}
 	
-	
 	@PostMapping("/modifyAppointmentForm")
 	public String modifyAppointmentForm(Model model, @RequestParam(name="meeting-time") String dt, @ModelAttribute("appointment") Appointment appoint) {
 		model.addAttribute("pageTitle", "modify appointment");
@@ -104,8 +104,17 @@ public class EmployeeController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		appointDAO.updateAppointment(new Appointment(appoint.getId(),theDate,appoint.getPsid(),appoint.getCitizenName(),appoint.getCitizenEmail()));
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(theDate);
+		cal.add(Calendar.HOUR, -2);
+		Date theDateCorrected = cal.getTime();
+		appointDAO.updateAppointment(new Appointment(appoint.getId(),theDateCorrected,true));
 		return "redirect:/employee/appointments";
-			
+	}
+	
+	@GetMapping("/delete-appointment")
+	public String deleteapp(@RequestParam("id") Integer id) {
+		appointDAO.deleteAppointment(id);
+		return "redirect:/employee/appointments";
 	}
 }

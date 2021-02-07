@@ -39,10 +39,10 @@ public class PublicService {
 	private String schedule;
 	
 	@Column(name = "postcode")
-	private int postcode;
+	private Integer postcode;
 	
 	@Column(name = "call_center")
-	private int callCenter;
+	private Integer callCenter;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "ps", cascade = CascadeType.ALL)
@@ -62,7 +62,7 @@ public class PublicService {
 	}
 
 	public PublicService(String name, String address, String appointmentRoom, boolean validated, String schedule,
-			int postcode, int callCenter) {
+			Integer postcode, Integer callCenter) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -131,19 +131,19 @@ public class PublicService {
 		this.schedule = schedule;
 	}
 
-	public int getPostcode() {
+	public Integer getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(int postcode) {
+	public void setPostcode(Integer postcode) {
 		this.postcode = postcode;
 	}
 
-	public int getCallCenter() {
+	public Integer getCallCenter() {
 		return callCenter;
 	}
 
-	public void setCallCenter(int callCenter) {
+	public void setCallCenter(Integer callCenter) {
 		this.callCenter = callCenter;
 	}
 

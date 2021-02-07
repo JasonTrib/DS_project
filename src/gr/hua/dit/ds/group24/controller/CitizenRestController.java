@@ -47,11 +47,6 @@ public class CitizenRestController {
 	@GetMapping("/appointments")
 	public List<Appointment> appointments() {
 		return appointDAO.getAppointments();
-//		List<Appointment> appoints = appointDAO.getAppointments();
-//		for (Appointment var : appoints) { 
-//			System.out.println(DateUtils.formatDate(var.getDate()));
-//		}
-//		return appoints;
 	}
 
 	@GetMapping("/appointments/{appointId}")
@@ -70,21 +65,21 @@ public class CitizenRestController {
 		return theAppointment;
 	}
 	
-	@PutMapping("/appointments")
-	public Appointment updateCustomer(@RequestBody Appointment theAppointment) {
-		appointDAO.updateAppointment(theAppointment);
-		return theAppointment;
-	}
-	
-	@DeleteMapping("/appointments/{appointId}")
-	public String deleteCustomer(@PathVariable int appointId) {
-		Appointment theAppointment = appointDAO.getAppointment(appointId);
-		if (theAppointment == null) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "appointment not found");
-		}
-		appointDAO.deleteAppointment(appointId);
-		return "Deleted appointment id - " + appointId;
-	}
+//	@PutMapping("/appointments")
+//	public Appointment updateCustomer(@RequestBody Appointment theAppointment) {
+//		appointDAO.updateAppointment(theAppointment);
+//		return theAppointment;
+//	}
+//	
+//	@DeleteMapping("/appointments/{appointId}")
+//	public String deleteCustomer(@PathVariable int appointId) {
+//		Appointment theAppointment = appointDAO.getAppointment(appointId);
+//		if (theAppointment == null) {
+//			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "appointment not found");
+//		}
+//		appointDAO.deleteAppointment(appointId);
+//		return "Deleted appointment id - " + appointId;
+//	}
 	
 	@GetMapping("/appointments/search/{name}")
 	public List<Appointment> getCitizenAppointments(@PathVariable String name) {

@@ -44,7 +44,7 @@ public class ManagerController {
 		return "manager/manager-menu";
 	}
 	
-	@RequestMapping("/supervisors-list")
+	@RequestMapping("/supervisors")
 	public String listsupervisors(Model model) {
 		model.addAttribute("pageTitle", "supervisors");
 		List<User> supervisors = userDAO.getSupervisors();
@@ -52,7 +52,7 @@ public class ManagerController {
 		return "manager/list-supervisors";
 	}
 	
-	@RequestMapping("/pservice-list")
+	@RequestMapping("/public_services")
 	public String listpservice(Model model) {
 		model.addAttribute("pageTitle", "public services");
 		List<PublicService> ps = psDAO.getPublicServices();
@@ -60,7 +60,7 @@ public class ManagerController {
 		return "manager/list-pservice";
 	}
 	
-	@RequestMapping("/submissions-list")
+	@RequestMapping("/submissions")
 	public String listsubmissions(Model model) {
 		model.addAttribute("pageTitle", "submissions");
 		List<User> submissions = userDAO.getSubmissions();
@@ -68,7 +68,7 @@ public class ManagerController {
 		return "manager/list-submissions";
 	}
 	
-	@GetMapping("/edit-supervisors")
+	@GetMapping("/supervisors/edit")
 	public String editsv(Model model, @RequestParam(name="username") String username) {
 		model.addAttribute("pageTitle", "edit supervisors");
 		User user  = userDAO.getUserByUsername(username);
@@ -76,7 +76,7 @@ public class ManagerController {
 		return "manager/supervisors-edit";
 	}
 	
-	@PostMapping("/editSupervisorForm")
+	@PostMapping("/supervisors/editForm")
 	public String editSupervisorForm(Model model, @ModelAttribute("user") User user) {
 		if(user.getPassword().trim().length()<3) {
 			model.addAttribute("pageTitle", "edit supervisors");
@@ -85,35 +85,27 @@ public class ManagerController {
 		}
 		user.setPassword(encoder.encode(user.getPassword()));
 		userDAO.updateUser(user);
-		return "redirect:/manager/supervisors-list";	
+		return "redirect:/manager/supervisors";	
 	}
 	
 	@GetMapping("/delete-publicservice")
 	public String deleteps(@RequestParam("id") Integer id) {
 		entitiesService.deletePublicServiceAppointment(id);
 //		psDAO.deletePublicService(id);
-		return "redirect:/manager/pservice-list";
+		return "redirect:/manager/public_services";
 	}
 	
 	@GetMapping("/accept-submission")
 	public String acceptsm(@RequestParam("username") String username) {
 		User user = userDAO.getUserByUsername(username);
 		entitiesService.acceptSubmission(user.getPs(),user);
-		return "redirect:/manager/submissions-list";
+		return "redirect:/manager/submissions";
 	}
 	
 	@GetMapping("/reject-submission")
 	public String rejectsm(@RequestParam("id") Integer id) {
 		psDAO.rejectSubmission(id);
-		return "redirect:/manager/submissions-list";
-	}
-	
-	@RequestMapping("/managers-list")
-	public String listmanagers(Model model) {
-		model.addAttribute("pageTitle", "managers");
-		List<User> managers = userDAO.getManagers();
-		model.addAttribute("managers", managers);
-		return "manager/list-managers";
+		return "redirect:/manager/submissions";
 	}
 	
 }	

@@ -37,4 +37,8 @@
 			<default-content-type>text/html</default-content-type>
 		</jsp-property-group>
 	</jsp-config>
+	
+	<error-page>
+		<location>/errors</location>
+	</error-page>
 </web-app>

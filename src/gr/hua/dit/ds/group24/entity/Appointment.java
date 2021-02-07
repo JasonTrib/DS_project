@@ -41,6 +41,13 @@ public class Appointment {
 		super();
 	}
 
+	public Appointment(int id, Date date, boolean validated) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.validated = validated;
+	}
+	
 	public Appointment(Date date, boolean validated, int psid) {
 		super();
 		this.date = date;
@@ -56,6 +63,17 @@ public class Appointment {
 		this.citizenName = citizenName;
 		this.citizenEmail = citizenEmail;
 	}
+	
+	public Appointment(int id, Date date, boolean validated, int psid, String citizenName, String citizenEmail) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.validated = validated;
+		this.psid = psid;
+		this.citizenName = citizenName;
+		this.citizenEmail = citizenEmail;
+	}
+	
 	
 	
 	public int getId() {

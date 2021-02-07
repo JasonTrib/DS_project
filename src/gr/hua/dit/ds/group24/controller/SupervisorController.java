@@ -48,14 +48,11 @@ public class SupervisorController {
 	@RequestMapping("/employees")
 	public String listEmployees(Model model,Authentication authent) {
 		model.addAttribute("pageTitle", "employee list");
-		//get logged-in user
 		User thisUser = userDAO.getUserByUsername(authent.getName());
 		List<User> employees;
 		if(thisUser.getTitle().equals("Admin")) {
-			//get all customers
 			employees = userDAO.getEmployees();
 		}else {
-			//get customers with corresponding psid
 			employees = userDAO.getEmployees(thisUser.getPs().getId());
 		}
         model.addAttribute("employees",employees);
@@ -68,7 +65,7 @@ public class SupervisorController {
 		return "redirect:/supervisor/employees";
 	}
 	
-	@GetMapping("/editEmployee")
+	@GetMapping("/employee/edit")
 	public String editEmployee(Model model,@RequestParam("username") String username) {
 		model.addAttribute("pageTitle", "edit employee");
 		User employee =  userDAO.getUserByUsername(username);
@@ -98,12 +95,14 @@ public class SupervisorController {
 		}
 		User employee;
 		if(thisUser.getTitle().equals("Admin")) {
-			PublicService ps = psDAO.getPublicService(psid);
-//			if(!ps.isValidated()) {
-//				model.addAttribute("pageTitle", "create employee");
-//				model.addAttribute("inputError2", true);
-//				return "supervisor/create-employee-form";
-//			}
+			PublicService ps;
+			try {
+				ps = psDAO.getPublicService(psid);
+			}catch(Exception ex) {
+				model.addAttribute("pageTitle", "create employee");
+				model.addAttribute("inputError2", true);
+				return "supervisor/create-employee-form";
+			}
 			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), ps);
 		}else {
 			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), thisUser.getPs());
@@ -113,7 +112,7 @@ public class SupervisorController {
 		return "redirect:/supervisor";
 	}
 	
-	@RequestMapping("/createEmployee")
+	@RequestMapping("/employee/create")
 	public String createEmployee(Model model) {
 		model.addAttribute("pageTitle", "create employee");
 		return "supervisor/create-employee-form";

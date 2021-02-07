@@ -5,7 +5,7 @@
 	<i>Password is too short!</i>
 </c:if>
 
-<form:form action="${pageContext.request.contextPath}/manager/editSupervisorForm" method="POST">
+<form:form action="${pageContext.request.contextPath}/manager/supervisors/editForm" method="POST">
 	
 	<label class="form-label"><i>Username</i></label>
 	<input type="text" name="username" value="${user.username}" readonly/>
@@ -25,4 +25,4 @@
 </form:form>
 
 <br/>
-<form action="${pageContext.request.contextPath}/manager/supervisors-list"><input type="submit" value="Cancel" /></form>
+<form action="${pageContext.request.contextPath}/manager/supervisors"><input type="submit" value="Cancel" /></form>

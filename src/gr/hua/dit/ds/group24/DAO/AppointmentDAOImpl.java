@@ -51,7 +51,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	public void updateAppointment(Appointment appoint) {
 		String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(appoint.getDate());
 		Session session = sessionFactory.getCurrentSession();
-		session.createQuery("update Appointment set date='"+date+"' where id='"+appoint.getId()+"'").executeUpdate();
+		session.createQuery("update Appointment set date='"+date+"', validated='"+(appoint.isValidated()?1:0)+"' where id='"+appoint.getId()+"'").executeUpdate();
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	
 	@Override
 	@Transactional
-	public List<Appointment> getAppointmentSubmissions() {					// --> new method implementation
+	public List<Appointment> getAppointmentSubmissions() {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Appointment> query = session.createQuery("from Appointment where validated=false", Appointment.class);
 		return query.getResultList();
@@ -88,7 +88,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	
 	@Override
 	@Transactional
-	public void acceptAppointment(Appointment appoint) {			// --> new method implementation
+	public void acceptAppointment(Appointment appoint) {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("update Appointment set validated=true where id='"+appoint.getId()+"'").executeUpdate();
 	}

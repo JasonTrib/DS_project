@@ -17,7 +17,7 @@
 			<td>${employee.fullname}</td>
 			<td>${employee.title}</td>
 			<td>${employee.email}</td>
-			<td><form action="${pageContext.request.contextPath}/supervisor/editEmployee" method="get">
+			<td><form action="${pageContext.request.contextPath}/supervisor/employee/edit" method="get">
 				<button name="username" type="submit" value="${employee.username}">Edit</button>
 			</form></td>
 			<td><form action="${pageContext.request.contextPath}/supervisor/deleteEmployee" method="get">

@@ -17,7 +17,7 @@
 			<td>${supervisor.title}</td>
 			<td>${supervisor.email}</td>
 			<td>${supervisor.ps.name}</td>
-			<td><form action="${pageContext.request.contextPath}/manager/edit-supervisors" method="get">
+			<td><form action="${pageContext.request.contextPath}/manager/supervisors/edit" method="get">
 					<button name="username" type="submit" value="${supervisor.username}">Edit</button>
 			</form></td>
 		</tr>

@@ -57,7 +57,16 @@ public class HomeController {
 	}
 	
 	@PostMapping("/submission")
-	public String savePs(@ModelAttribute("publicservice") PublicService ps, @ModelAttribute("user") User user) {
+	public String savePs(Model model, @ModelAttribute("publicservice") PublicService ps, @ModelAttribute("user") User user) {
+		if(ps.getName().trim().length()<3) {
+			model.addAttribute("pageTitle", "new submission (error)");
+			model.addAttribute("inputError", true);
+			return "submission-form";
+		}else if(user.getUsername().trim().length()<3 || user.getPassword().trim().length()<4) {
+			model.addAttribute("pageTitle", "new submission (error)");
+			model.addAttribute("inputError2", true);
+			return "submission-form";
+		}
 		PublicService ps1 = new PublicService(ps.getName(), ps.getAddress(), ps.getAppointmentRoom(), false, ps.getSchedule(), ps.getPostcode(),ps.getCallCenter());
 		User user1 = new User(user.getUsername(), encoder.encode(user.getPassword()), true, user.getFullname(), "User", user.getEmail(), ps1);
 		entitiesService.savePublicServiceUser(ps1,user1);
@@ -79,11 +88,6 @@ public class HomeController {
 		return "admin-page";
 	}
 	
-	@RequestMapping("/403")
-	public String status403error(Model model) {
-		model.addAttribute("pageTitle", "403 Forbidden");
-		return "status/error403";
-	}
 	
 }
 	
