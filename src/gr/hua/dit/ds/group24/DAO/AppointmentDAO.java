@@ -12,4 +12,6 @@ public interface AppointmentDAO {
 	public void deleteAppointment(Integer id);
 	public List<Appointment> getCitizenAppointments(String name);
 	public void deletePublicServiceAppointments(Integer id);
+	public List<Appointment> getAppointmentSubmissions();
+	public void acceptAppointment(Appointment appoint);
 }

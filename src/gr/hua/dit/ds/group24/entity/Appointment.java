@@ -48,6 +48,15 @@ public class Appointment {
 		this.psid = psid;
 	}
 	
+	public Appointment(int id, Date date, int psid, String citizenName, String citizenEmail) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.psid = psid;
+		this.citizenName = citizenName;
+		this.citizenEmail = citizenEmail;
+	}
+	
 	
 	public int getId() {
 		return id;

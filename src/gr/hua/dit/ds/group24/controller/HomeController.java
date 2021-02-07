@@ -1,8 +1,10 @@
 package gr.hua.dit.ds.group24.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +62,13 @@ public class HomeController {
 		User user1 = new User(user.getUsername(), encoder.encode(user.getPassword()), true, user.getFullname(), "User", user.getEmail(), ps1);
 		entitiesService.savePublicServiceUser(ps1,user1);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/user")
+	public String user(Model model, Principal principal) {
+		model.addAttribute("pageTitle", "user info");
+		model.addAttribute("user", userDAO.getUserByUsername(principal.getName()));
+		return "user";
 	}
 	
 	@GetMapping("/admin")

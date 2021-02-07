@@ -27,7 +27,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	@Transactional
 	public List<Appointment> getAppointments() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Appointment> query = session.createQuery("from Appointment", Appointment.class);
+		Query<Appointment> query = session.createQuery("from Appointment where validated=true", Appointment.class);
 		return query.getResultList();
 	}
 	
@@ -49,10 +49,6 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	@Override
 	@Transactional
 	public void updateAppointment(Appointment appoint) {
-		
-//		String a = DateUtils.formatDate(appoint.getDate());///////////////////////////////////////////////////////////////////////////////////
-//		System.out.println(">>>>>"+appoint.getDate()+" <<>> "+a);///////////////////////////////////////////////////////////////////////////////////
-		
 		String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(appoint.getDate());
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("update Appointment set date='"+date+"' where id='"+appoint.getId()+"'").executeUpdate();
@@ -79,5 +75,21 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	public void deletePublicServiceAppointments(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("delete from Appointment where ps_id='"+id+"'").executeUpdate();
+	}
+	
+	
+	@Override
+	@Transactional
+	public List<Appointment> getAppointmentSubmissions() {					// --> new method implementation
+		Session session = sessionFactory.getCurrentSession();
+		Query<Appointment> query = session.createQuery("from Appointment where validated=false", Appointment.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public void acceptAppointment(Appointment appoint) {			// --> new method implementation
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("update Appointment set validated=true where id='"+appoint.getId()+"'").executeUpdate();
 	}
 }
