@@ -27,6 +27,14 @@ public class PublicServiceDAOImpl implements PublicServiceDAO {
 	
 	@Override
 	@Transactional
+	public List<PublicService> getPublicServices1(Integer id) {		// updated (new), lista pou exei polla public services me ena id
+		Session session = sessionFactory.getCurrentSession();
+		Query<PublicService> query = session.createQuery("from PublicService where validated=true and id='"+id+"'", PublicService.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	@Transactional
 	public PublicService getPublicService(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<PublicService> query = session.createQuery("from PublicService where id='"+id+"' and validated=true", PublicService.class);

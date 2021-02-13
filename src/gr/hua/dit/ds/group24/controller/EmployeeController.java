@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import gr.hua.dit.ds.group24.DAO.UserDAO;
 import gr.hua.dit.ds.group24.DAO.UserDetailsDao;
 import gr.hua.dit.ds.group24.entity.Appointment;
 import gr.hua.dit.ds.group24.entity.PublicService;
+import gr.hua.dit.ds.group24.entity.User;
 import gr.hua.dit.ds.group24.service.EntitiesService;
 
 @Controller
@@ -54,22 +56,37 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("/appointmentSubmissions") 
-	public String appointmentSubmissions(Model model) {
+	public String appointmentSubmissions(Model model, Authentication auth) {			// updated
 		model.addAttribute("pageTitle", "employee submissions");
 		List<Appointment> appsubmissions = appointDAO.getAppointmentSubmissions();
 		model.addAttribute("appsubmissions", appsubmissions);
-		List<PublicService> ps = psDAO.getPublicServices();
+		
+		User emp = userDAO.getUserByUsername(auth.getName());
+		List<PublicService> ps;
+		if(emp.getTitle().equals("Admin")) {
+			ps = psDAO.getPublicServices();
+		} else {
+			ps = psDAO.getPublicServices1(emp.getPs().getId());
+		}
 		model.addAttribute("ps", ps);
 		return "employee/appointment-submissions";
 	}
 	
 	@RequestMapping("/appointments")
-	public String appointments(Model model) {
+	public String appointments(Model model, Authentication auth) {		// updated
 		model.addAttribute("pageTitle", "employee appointments");
 		List<Appointment> appointments = appointDAO.getAppointments();
 		model.addAttribute("appointments", appointments);
-		List<PublicService> ps = psDAO.getPublicServices();
+		
+		User emp = userDAO.getUserByUsername(auth.getName());
+		List<PublicService> ps;
+		if(emp.getTitle().equals("Admin")) {
+			ps = psDAO.getPublicServices();
+		} else {
+			ps = psDAO.getPublicServices1(emp.getPs().getId());
+		}	
 		model.addAttribute("ps", ps);
+
 		return "employee/appointments";
 	}
 	

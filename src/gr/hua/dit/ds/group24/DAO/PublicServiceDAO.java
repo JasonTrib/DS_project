@@ -11,4 +11,5 @@ public interface PublicServiceDAO {
 	public void updatePublicService(PublicService ps);
 	public void deletePublicService(Integer Id);
 	public void rejectSubmission(Integer id);
+	public List<PublicService> getPublicServices1(Integer id);	// updated (new)
 }

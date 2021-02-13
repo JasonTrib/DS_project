@@ -45,7 +45,7 @@ public class PublicService {
 	private Integer callCenter;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "ps", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ps", cascade = CascadeType.ALL)		// updated (added eager)
 	private List<User> users;
 
 	
