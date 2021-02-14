@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+/*background-image: url('../img/hua.jpg');*/
+background-size: cover;
+background-repeat: no-repeat;
+padding-top: 40px;
+padding-bottom: 100px;
+height: 75%;
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+height: 50rem;
+margin-top: auto;
+margin-bottom: auto;
+width: 70rem;
+background-color: rgba(0,0,0,0.7) !important;
+}
+
+.scrollit {
+    overflow:scroll;
+    height:100px;
+}
+
+.login_card{
+height: 25rem;
+margin-top: auto;
+margin-bottom: auto;
+width: 23rem;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.form_card{
+height: auto;
+margin-top: auto;
+margin-bottom: auto;
+width: auto;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.table{
+	height: 20rem;
+}
+
+.card-header h3{
+color: white;
+}
+
+.input-group-prepend{
+width: 2rem;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+.input-read-only{
+	background-color:  rgba(211,211,211,0.8) !important;
+}
+.colored_btn{
+height: 25rem;
+margin-top: auto;
+margin-bottom: auto;
+width: 23rem;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+
+.navbar-brand {
+  line-height:12px;
+  padding-top:20px;
+  padding-bottom:5px;
+  font-size: 25px !important
+}
+
+.navbar-brand small {
+  display:block;
+  padding-top:10px;
+  font-size:12px;
+}
+
+.navbar-toggle {top:10px}
+
+@media (min-width:768px) {
+
+  .nav.navbar-nav a {
+    padding-top:30px;
+    padding-bottom:30px;
+  }
+
+}
