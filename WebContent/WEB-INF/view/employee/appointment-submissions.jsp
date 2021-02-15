@@ -1,11 +1,13 @@
-<div class="container">
-	<div class="d-flex justify-content-center overflow-auto">
-		<div class="card ">
+<div class="container-fluid">
+	<div class="d-flex justify-content-center">
+		<div class="card">
 			<div class="card-header">
 				<h3>Appointment Requests</h3>
+				<form action="${pageContext.request.contextPath}/employee">
+					<button class="btn float-right login_btn" type="submit" value="Back">Back</button>
+				</form>
 			</div>
-			<div class="card-body">
-				
+			<div class="card-body overflow-auto">
 				<table class="table">
 					<thead>
 						<tr class="table-primary">
@@ -49,9 +51,7 @@
 							</tr>
 						</tbody>
 					</c:forEach>
-					
 				</table>
-			
 			</div>
 			<div class="card-footer">
 				<form action="${pageContext.request.contextPath}/employee">

@@ -13,7 +13,7 @@
 					<form:form action="${pageContext.request.contextPath}/supervisor/editEmployeeForm" method="POST">
 					
 						<label class="form-label"><i>Username</i></label>
-						<input type="text" class="list-group-item list-group-item-action" name="username" value="${user.username}" readonly />
+						<input type="text" class="list-group-item list-group-item-action input-read-only" name="username" value="${user.username}" readonly />
 					
 						<label class="form-label">Full name</label>
 						<input type="text" class="list-group-item list-group-item-action" name="fullname" value="${user.fullname}" placeholder="${user.fullname}" />
@@ -27,12 +27,11 @@
 						<input type="submit" class="btn float-right login_btn"/>
 					
 					</form:form>
-
 				</ul>
 			</div>
 			<div class="card-footer">
 				<form action="${pageContext.request.contextPath}/supervisor/employees">
-					<input type="submit" class="btn float-right login_btn" value="Cancel" />
+					<input type="submit" class="btn float-left login_btn" value="Cancel" />
 				</form>
 			</div>
 		</div>

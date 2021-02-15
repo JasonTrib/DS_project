@@ -35,7 +35,7 @@
 				</ul>
 			</div>
 			<div class="card-footer">
-				<form action="${pageContext.request.contextPath}/employee">
+				<form action="${pageContext.request.contextPath}/employee/appointmentSubmissions">
 					<input type="submit" class="btn float-right login_btn" value="Cancel" />
 				</form>
 			</div>

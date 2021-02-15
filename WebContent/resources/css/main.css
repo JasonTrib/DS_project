@@ -10,18 +10,20 @@ height: 75%;
 font-family: 'Numans', sans-serif;
 }
 
-.container{
+.container-fluid{
 height: 100%;
 align-content: center;
 }
 
 .card{
-height: 50rem;
+height: auto;
 margin-top: auto;
-margin-bottom: auto;
-width: 70rem;
+margin-bottom: 5rem;
+width: auto;
+min-width:50rem;
 background-color: rgba(0,0,0,0.7) !important;
 }
+
 
 .scrollit {
     overflow:scroll;
@@ -32,16 +34,16 @@ background-color: rgba(0,0,0,0.7) !important;
 height: 25rem;
 margin-top: auto;
 margin-bottom: auto;
-width: 23rem;
+min-width: 23rem;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
 .form_card{
 height: auto;
 margin-top: auto;
-margin-bottom: auto;
-width: auto;
-background-color: rgba(0,0,0,0.5) !important;
+margin-bottom: 5rem;
+min-width: 23rem;
+background-color: rgba(0,0,0,0.7) !important;
 }
 
 .table{
@@ -62,12 +64,9 @@ border:0 !important;
 .input-read-only{
 	background-color:  rgba(211,211,211,0.8) !important;
 }
-.colored_btn{
-height: 25rem;
-margin-top: auto;
-margin-bottom: auto;
-width: 23rem;
-background-color: rgba(0,0,0,0.5) !important;
+
+.form-label{
+	color:white;
 }
 
 .links{
