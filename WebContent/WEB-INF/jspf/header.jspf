@@ -42,7 +42,7 @@
 <body>
 	
 	<!-- NAVIGATION -->
-	<nav class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+	<nav class="navbar navbar-light fixed-top" style="background-color: #75C7FF;">
 	<a class="navbar-brand" href="${pageContext.request.contextPath}">Public Service System
 		<small>
 			<sec:authorize access="isAuthenticated()">
@@ -55,17 +55,12 @@
 		
 		</small>
 	</a>
-	<!--<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarText" aria-controls="navbarText"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>-->
 		<sec:authorize access="isAuthenticated()">
 			<sec:authorize access="hasRole('ADMIN')">
-				<a class="btn btn-link" href="${pageContext.request.contextPath}/admin" >Admin</a>
+				<a class="btn float-right" href="${pageContext.request.contextPath}/admin" >Admin</a>
 			</sec:authorize>
 
-			<a class="btn btn-link" name="logout-nav">Logout</a>
+			<a class="btn float-right" name="logout-nav">Logout</a>
 		</sec:authorize>
 		
 		<sec:authorize access="isAuthenticated()">

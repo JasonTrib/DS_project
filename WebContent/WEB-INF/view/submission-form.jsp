@@ -38,7 +38,9 @@
 							
 							<label class="form-label">Call Center</label>
 							<input type="number" class="list-group-item list-group-item-action" name="callCenter" placeholder="call center" />
-					
+							
+							</br>
+							
 							<h4><label class="form-label">Supervisor:</label></h4>
 							
 							<c:if test="${inputError2==true}">

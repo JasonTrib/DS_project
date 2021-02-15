@@ -1,13 +1,11 @@
 <!-- FOOTER -->
-	<footer class="fixed-bottom navbar navbar-light"
-		style="background-color: #e3f2fd;">
+	<footer class="fixed-bottom navbar navbar-light" style="background-color: #75C7FF;">
 		<div class="d-flex justify-content-left links">
 			<a href="#">Contact</a> //
-			<a href="#">Associated Links</a> // 
 			<a href="#">User Manual</a> //
 			<a href="#">Terms & Conditions</a> // 
 		</div>
-		Publice Services System © Copyright 2020 Χαροκόπειο Πανεπιστήμιο
+		Public Services System © Copyright 2021 Χαροκόπειο Πανεπιστήμιο
 	</footer>
 </body>
 

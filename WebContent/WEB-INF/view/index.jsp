@@ -3,7 +3,7 @@
 		<div class="card">
 			<div class="card-header">
 				<sec:authorize access="hasAnyRole('ADMIN','MANAGER','SUPERVISOR','EMPLOYEE')">
-					<h1>Home Menu</h1>
+					<h3>Home Menu</h3>
 				</sec:authorize>
 			</div>
 			<div  class="card-body">

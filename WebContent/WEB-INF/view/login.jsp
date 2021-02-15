@@ -21,16 +21,14 @@
 							<input type="password" name="password" class="form-control" placeholder="Password">
 						</div>
 					</div>
-						
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
+					
+					</br>
+					
 					<div class="form-group">
 						<input type="hidden" name="origin" value="login"> 
-						<input type="submit" value="Login" class="btn float-right login_btn">
+						<input type="submit" value="Login" class="btn float-left login_btn">
 					</div>
 				</form:form>
-				
 			</div>
 			<div class="card-footer">
 				<div class="form-group">	
@@ -43,5 +41,3 @@
 		</div>
 	</div>
 </div>
-<br/>
-
