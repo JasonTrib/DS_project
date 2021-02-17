@@ -3,9 +3,6 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>Employees:</h3>
-				<form action="${pageContext.request.contextPath}/supervisor">
-					<button class="btn float-right login_btn" type="submit" value="Back">Back</button>
-				</form>
 			</div>
 			<div class="card-body">
 				<table class="table">
@@ -30,13 +27,26 @@
 									<td>${employee.email}</td>
 									<td>
 										<form action="${pageContext.request.contextPath}/supervisor/employee/edit" method="get">
-										<button name="username" class="btn float-right login_btn" type="submit" value="${employee.username}">Edit</button>
+											<button name="username" class="btn float-right login_btn" type="submit" value="${employee.username}">Edit</button>
 										</form>
 									</td>
 									<td>
-										<form action="${pageContext.request.contextPath}/supervisor/deleteEmployee" method="get">
-											<button name="username" class="btn float-right login_btn" type="submit" value="${employee.username}">Delete</button>
-										</form>
+										<button id="rusureBtn" class="btn float-right login_btn">Delete</button>
+										<div id="myModal" class="modal">
+									  		<div class="modal-content">
+									    		<span class="close">&times;</span>
+									    		<p>Are you sure you want to delete this employee entirely?</p>
+									    		<div class="btn-toolbar" style="display: inline">
+									    			<form action="${pageContext.request.contextPath}/supervisor/employees">
+														<button class="btn float-right login_btn" type="submit" value="Back">No</button>
+													</form>
+										    		<form action="${pageContext.request.contextPath}/supervisor/deleteEmployee" method="get">
+														<button name="username" class="btn float-right login_btn btn-danger" type="submit" value="${employee.username}">Yes</button>
+													</form>													
+												</div>
+									  		</div>
+									  	</div>
+										
 									</td>
 								</tr>
 							</tbody>

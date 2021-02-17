@@ -3,9 +3,6 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>Public Services</h3>
-				<form action="${pageContext.request.contextPath}/manager">
-					<button class="btn float-right login_btn" type="submit" value="Back">Back</button>
-				</form>
 			</div>
 			<div class="card-body">
 				<table class="table">
@@ -31,9 +28,22 @@
 									<td>${ps.postcode}</td>
 									<td>${ps.callCenter}</td>
 									<td>
-										<form action="${pageContext.request.contextPath}/manager/delete-publicservice" method="get">
-											<button class="btn float-right login_btn" name="id" type="submit" value="${ps.id}">Delete</button>
-										</form>
+										<button id="rusureBtn" class="btn float-right login_btn">Delete</button>
+										<div id="myModal" class="modal">
+									  		<div class="modal-content">
+									    		<span class="close">&times;</span>
+									    		<p>Are you sure you want to delete this public service entirely?</p>
+									    		<div class="btn-toolbar" style="display: inline">
+									    			<form action="${pageContext.request.contextPath}/manager/public_services">
+														<button class="btn float-right login_btn" type="submit" value="Back">No</button>
+													</form>
+										    		<form action="${pageContext.request.contextPath}/manager/delete-publicservice" method="get">
+														<button class="btn float-right login_btn btn-danger" name="id" type="submit" value="${ps.id}">Yes</button>
+													</form>													
+												</div>
+									  		</div>
+									  	</div>
+										
 									</td>
 								</tr>
 							</tbody>

@@ -3,9 +3,6 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>New Public Service Submissions:</h3>
-				<form action="${pageContext.request.contextPath}/manager">
-					<button class="btn float-right login_btn" type="submit" value="Back">Back</button>
-				</form>
 			</div>
 			<div class="card-body overflow-auto">
 				<table class="table">
@@ -46,9 +43,22 @@
 									</form>
 								</td>
 								<td>
-									<form action="${pageContext.request.contextPath}/manager/reject-submission" method="get">
-										<button class="btn float-right login_btn" name="id" type="submit" value="${submission.ps.id}">Reject</button>
-									</form>
+									<button id="rusureBtn" class="btn float-right login_btn">Reject</button>
+									<div id="myModal" class="modal">
+								  		<div class="modal-content">
+								    		<span class="close">&times;</span>
+								    		<p>Are you sure you want to reject this public service submission?</p>
+								    		<div class="btn-toolbar" style="display: inline">
+								    			<form action="${pageContext.request.contextPath}/manager/submissions">
+													<button class="btn float-right login_btn" type="submit" value="Back">No</button>
+												</form>
+									    		<form action="${pageContext.request.contextPath}/manager/reject-submission" method="get">
+													<button class="btn float-right login_btn btn-danger" name="id" type="submit" value="${submission.ps.id}">Yes</button>
+												</form>
+											</div>
+								  		</div>
+								  	</div>
+									
 								</td>
 							</tr>
 						</tbody>

@@ -88,7 +88,9 @@ public class HomeController {
 		return "admin-page";
 	}
 	
-	
+	@GetMapping("/user-manual")
+	public String userManual(Model model) {
+		model.addAttribute("pageTitle", "User Manual");
+		return "user-manual";
+	}
 }
-	
-

@@ -1,9 +1,11 @@
 <!-- FOOTER -->
 	<footer class="fixed-bottom navbar navbar-light" style="background-color: #75C7FF;">
-		<div class="d-flex justify-content-left links">
-			<a href="#">Contact</a> //
-			<a href="#">User Manual</a> //
-			<a href="#">Terms & Conditions</a> // 
+		<div class="d-flex links">
+			<a href="#">Contact</a> ||
+			<sec:authorize access="hasAnyRole('ADMIN','MANAGER','SUPERVISOR','EMPLOYEE')">
+				<a href="${pageContext.request.contextPath}/user-manual">User Manual</a> ||
+			</sec:authorize>
+			<a href="#">Terms & Conditions</a>
 		</div>
 		Public Services System © Copyright 2021 Χαροκόπειο Πανεπιστήμιο
 	</footer>
@@ -11,7 +13,7 @@
 
 <!--JAVASCRIPT -->
 
-<script type="text/javascript">
+<script>
 	$("[name='logout-nav']").click(
 			function() {
 				var urlCall = "<c:url value="/logout"></c:url>";
@@ -33,6 +35,32 @@
 					},
 				});
 			});
+			<!--modal script -->  
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("rusureBtn");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			// When the user clicks the button, open the modal 
+			btn.onclick = function() {
+			  modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			  modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			  if (event.target == modal) {
+			    modal.style.display = "none";
+			  }
+			}
 </script>
 
 </body>

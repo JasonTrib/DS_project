@@ -36,14 +36,16 @@
 <spring:url value="/resources/css/main.css" var="mainCss" />
 <link href="${mainCss}" rel="stylesheet" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	
-	<!-- NAVIGATION -->
-	<nav class="navbar navbar-light fixed-top" style="background-color: #75C7FF;">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}">Public Service System
+<!-- NAVIGATION -->
+<nav class="navbar navbar-light fixed-top" style="background-color: #75C7FF;">
+	<a class="navbar-brand" href="${pageContext.request.contextPath}">
+			Public Service System
 		<small>
 			<sec:authorize access="isAuthenticated()">
 				<div class="ui segment">
@@ -51,23 +53,16 @@
 					<b><sec:authentication property="principal.username" /></b>
 				</div>
 			</sec:authorize>
-		
-		
 		</small>
 	</a>
-		<sec:authorize access="isAuthenticated()">
-			<sec:authorize access="hasRole('ADMIN')">
-				<a class="btn float-right" href="${pageContext.request.contextPath}/admin" >Admin</a>
-			</sec:authorize>
-
-			<a class="btn float-right" name="logout-nav">Logout</a>
-		</sec:authorize>
+	<sec:authorize access="isAuthenticated()">
 		
-		<sec:authorize access="isAuthenticated()">
-			<hr />
-		</sec:authorize>
+		<a href="${pageContext.request.contextPath}/user" class="btn btn-info">User</a>
 		
-		<sec:authorize access="isAuthenticated()">
-			<br/>
+		<sec:authorize access="hasRole('ADMIN')">   	
+			<a href="${pageContext.request.contextPath}/admin" class="btn btn-info">Admin</a>
 		</sec:authorize>
-	</nav>
+		<hr/>
+		<a name="logout-nav" class="btn btn-danger">Logout</a>
+	</sec:authorize>
+</nav>

@@ -3,9 +3,6 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>Appointment Requests</h3>
-				<form action="${pageContext.request.contextPath}/employee">
-					<button class="btn float-right login_btn" type="submit" value="Back">Back</button>
-				</form>
 			</div>
 			<div class="card-body overflow-auto">
 				<table class="table">
@@ -35,13 +32,25 @@
 					
 								<td scope="row">
 									<form action="${pageContext.request.contextPath}/employee/accept-appointment" method="get">
-										<button class="btn float-right" name="id" type="submit" value="${submission.id}">Approve</button>
+										<button class="btn float-right login_btn" name="id" type="submit" value="${submission.id}">Approve</button>
 									</form>
 								</td>
 								<td scope="row">
-									<form action="${pageContext.request.contextPath}/employee/reject-appointment" method="get">
-										<button class="btn float-right login_btn" name="id" type="submit" value="${submission.id}">Reject</button>
-									</form>
+									<button id="rusureBtn" class="btn float-right login_btn">Reject</button>
+									<div id="myModal" class="modal">
+								  		<div class="modal-content">
+								    		<span class="close">&times;</span>
+								    		<p>Are you sure you want to reject this appointment request?</p>
+								    		<div class="btn-toolbar" style="display: inline">
+								    			<form action="${pageContext.request.contextPath}/employee/appointmentSubmissions">
+													<button class="btn float-right login_btn" type="submit" value="Back">No</button>
+												</form>
+									    		<form action="${pageContext.request.contextPath}/employee/reject-appointment" method="get">
+													<button class="btn float-right login_btn btn-danger" name="id" type="submit" value="${submission.id}">Yes</button>
+												</form>
+											</div>
+								  		</div>
+								  	</div>
 								</td>
 								<td scope="row">
 									<form action="${pageContext.request.contextPath}/employee/modify-appointment" method="get">

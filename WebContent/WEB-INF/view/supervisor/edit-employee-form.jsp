@@ -24,14 +24,14 @@
 						<br>
 						
 						<label class="form-label"></label>
-						<input type="submit" class="btn float-right login_btn"/>
+						<input type="submit" class="btn float-left login_btn"/>
 					
 					</form:form>
 				</ul>
 			</div>
 			<div class="card-footer">
 				<form action="${pageContext.request.contextPath}/supervisor/employees">
-					<input type="submit" class="btn float-left login_btn" value="Cancel" />
+					<input type="submit" class="btn float-right login_btn" value="Cancel" />
 				</form>
 			</div>
 		</div>

@@ -3,9 +3,6 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>Supervisors:</h3>
-				<form action="${pageContext.request.contextPath}/manager">
-					<button class="btn float-right login_btn" type="submit" value="Back">Back</button>
-				</form>
 			</div>
 			<div class="card-body">
 				<table class="table">
