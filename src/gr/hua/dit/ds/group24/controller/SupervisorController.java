@@ -118,4 +118,52 @@ public class SupervisorController {
 		return "supervisor/create-employee-form";
 	}
 	
+	
+	// logged in as admin (lines 123-143)
+	
+	@RequestMapping("/selectPs")
+	public String selectPs(Model model) {
+		model.addAttribute("pageTitle", "select ps");
+		return "supervisor/selectps";
+	}
+	
+	
+	@PostMapping("/editPsForm")
+	public String editPsForm(Model model, @RequestParam(value="id", required=false) Integer id, Authentication authent) {
+		User thisUser = userDAO.getUserByUsername(authent.getName());
+		PublicService publicservice;
+		try {
+			publicservice = psDAO.getPublicService(id);
+		} catch(Exception ex) {
+			model.addAttribute("pageTitle", "edit");
+			model.addAttribute("inputError2", true);
+			return "supervisor/selectps";
+		}
+		model.addAttribute("publicservice", publicservice);
+		return "supervisor/publicservices-edit";
+	}
+	
+	
+	// logged in as supervisor (lines 147-163)
+	
+	@RequestMapping("/editPs")
+	public String editPservice(Model model, Authentication auth) {
+		model.addAttribute("pageTitle", "edit pservice");
+		User supervisor = userDAO.getUserByUsername(auth.getName());
+		PublicService publicservice;
+		publicservice = psDAO.getPublicService(supervisor.getPs().getId());
+		model.addAttribute("publicservice", publicservice);
+		return "supervisor/publicservices-edit";
+	}
+	
+	@PostMapping("/editPublicServicesForm")
+	public String editPsForm(Model model, @ModelAttribute("publicservice") PublicService publicservice) {
+		model.addAttribute("pageTitle", "edit pservice");
+		
+		psDAO.updatePublicService(publicservice);
+		return "redirect:/supervisor";
+	}
+	
+	
+	
 }
