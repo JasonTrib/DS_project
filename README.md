@@ -108,7 +108,7 @@ INSERT INTO `public_service` (`id`,`name`,`address`,`appointment_room`,`validate
 (2, 'ΔΟΥ', 'Delfi 45', 'A08', 1, 'Mon-Fri, 8:00-14:30 ', 16156, 2102624583),
 (3, 'ΙΚΑ', 'Makrygianni 98', 'A5', 0, 'Mon-Fri, 7:20-14:30 ', 11331, 2102400184),
 (4, 'ΤΕΒΕ', 'Egnatias 17', 'B1', 0, 'Mon-Fri, 8:00-14:30 ', 12398, 2102210730),
-(5, 'ΚΕΠ', 'Egnatias 17', '-', 1, 'Mon-Fri, 8:00-20:00 ', 14466, 2102558148);
+(5, 'ΚΕΠ', 'Fedonos 40', '-', 1, 'Mon-Fri, 8:00-20:00 ', 14466, 2102558148);
 
 INSERT INTO `appointment` (`id`, `date`, `validated`, `ps_id`, `citizen_name`, `citizen_email`) VALUES
 (1, '2021-03-20 07:30:00', 1, 1, 'George Green', 'georgeg@email.com'),
