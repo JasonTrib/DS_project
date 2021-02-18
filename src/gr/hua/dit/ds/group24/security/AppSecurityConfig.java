@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
-
 	@Autowired
 	DataSource dataSource;
 	
@@ -28,10 +27,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
 	    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-
-
 	}
 
 	@Override
@@ -44,15 +40,12 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/employee").hasAnyRole("ADMIN", "EMPLOYEE")
 			.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/authUser")
 			.permitAll().and().logout().permitAll().and().exceptionHandling().accessDeniedPage("/403");
-
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**");
-
 		web.ignoring().antMatchers("/api/**");
-
 	}
 
 	@Bean

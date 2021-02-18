@@ -11,10 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import gr.hua.dit.ds.group24.DAO.UserDetailsDao;
 import gr.hua.dit.ds.group24.entity.User;
 
-
 @Service("userDetailsService")
 public class UserDetailsServiceImp implements UserDetailsService {
-
 	@Autowired
 	private UserDetailsDao userDetailsDao;
 
@@ -24,18 +22,15 @@ public class UserDetailsServiceImp implements UserDetailsService {
 		User user = userDetailsDao.findUserByUsername(username);
 		UserBuilder builder = null;
 		if (user != null) {
-
 			builder = org.springframework.security.core.userdetails.User.withUsername(username);
 			builder.disabled(!user.isEnabled());
 			builder.password(user.getPassword());
 			String[] authorities = user.getAuthorities().stream().map(a -> a.getAuthority()).toArray(String[]::new);
-
 			builder.authorities(authorities);
 		} else {
 			throw new UsernameNotFoundException("User not found.");
 		}
 		return builder.build();
-
 	}
 
 }

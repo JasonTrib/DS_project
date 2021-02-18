@@ -3,7 +3,7 @@
 	<div class="d-flex justify-content-center">
 		<div class="card">
 			<div class="card-header">
-				<h3>Appointment Requests</h3>
+				<h3>Appointment Submissions</h3>
 			</div>
 			<div class="card-body overflow-auto">
 				<table class="table">

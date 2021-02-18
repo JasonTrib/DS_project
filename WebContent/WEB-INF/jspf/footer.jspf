@@ -2,16 +2,22 @@
 <!-- FOOTER -->
 	<footer class="fixed-bottom navbar navbar-light" style="background-color: #75C7FF;">
 		<div class="d-flex links">
-			<sec:authorize access="hasAnyRole('ADMIN','MANAGER','SUPERVISOR','EMPLOYEE')">
-				<a href="${pageContext.request.contextPath}/user-manual">User Manual</a>
+
+			<sec:authorize access="!hasAnyRole('ADMIN','MANAGER','SUPERVISOR','EMPLOYEE')">
+				<a href="${pageContext.request.contextPath}/resources/pdf/managermanual.pdf" target="_blank">Manager Manual</a>
+				|
+				<a href="${pageContext.request.contextPath}/resources/pdf/supervisormanual.pdf" target="_blank">Supervisor Manual</a>
+				|
+				<a href="${pageContext.request.contextPath}/resources/pdf/employeemanual.pdf" target="_blank">Employee Manual</a>
 			</sec:authorize>
+
 		</div>
 		<div class="copyright">
 				Public Services System
 				&copy; 2020<script>
 					new Date().getFullYear() > 2010 && document.write("-" + new Date().getFullYear());
 				</script>, Harokopio University.
-
+			<a href="${pageContext.request.contextPath}/resources/pdf/credits.pdf" target="_blank">Credits</a>
 		</div>
 	</footer>
 </body>

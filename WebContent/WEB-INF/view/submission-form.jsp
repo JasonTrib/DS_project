@@ -18,7 +18,7 @@
 							<h4><label class="form-label">Public Service:</label></h4>
 							
 								<c:if test="${inputError==true}">
-									<i>Error! Name is too short/empty.</i>
+									<i>Error! Name is too short/empty.</i><br/>
 								</c:if>
 					
 							<label class="form-label">Name</label>
@@ -44,7 +44,10 @@
 							<h4><label class="form-label">Supervisor:</label></h4>
 							
 							<c:if test="${inputError2==true}">
-								<i>Error! Username/password is too short/empty.</i>
+								<i>Error! Username already exists.</i><br/>
+							</c:if>
+							<c:if test="${inputError3==true}">
+								<i>Error! Username/password is too short/empty.</i><br/>
 							</c:if>
 					
 							<label class="form-label">Username</label>

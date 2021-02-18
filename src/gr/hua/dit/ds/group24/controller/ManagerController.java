@@ -3,7 +3,6 @@ package gr.hua.dit.ds.group24.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import gr.hua.dit.ds.group24.DAO.AuthoritiesDAO;
 import gr.hua.dit.ds.group24.DAO.PublicServiceDAO;
 import gr.hua.dit.ds.group24.DAO.UserDAO;
-import gr.hua.dit.ds.group24.entity.Authorities;
 import gr.hua.dit.ds.group24.entity.PublicService;
 import gr.hua.dit.ds.group24.entity.User;
 import gr.hua.dit.ds.group24.service.EntitiesService;
@@ -28,16 +25,10 @@ public class ManagerController {
 	
 	@Autowired
 	private UserDAO userDAO;
-	
-	@Autowired
-	private AuthoritiesDAO authDAO;
-	
+
 	@Autowired
 	private EntitiesService entitiesService;
-	
-	@Autowired
-	private PasswordEncoder encoder;
-	
+
 	@RequestMapping("")
 	public String menu(Model model) {
 		model.addAttribute("pageTitle", "manager menu");
@@ -78,12 +69,6 @@ public class ManagerController {
 	
 	@PostMapping("/supervisors/editForm")
 	public String editSupervisorForm(Model model, @ModelAttribute("user") User user) {
-//		if(user.getPassword().trim().length()<3) {
-//			model.addAttribute("pageTitle", "edit supervisors");
-//			model.addAttribute("inputError", true);
-//			return "manager/supervisors-edit";
-//		}
-//		user.setPassword(encoder.encode(user.getPassword()));
 		userDAO.updateUser(user);
 		return "redirect:/manager/supervisors";	
 	}

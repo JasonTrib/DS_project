@@ -8,10 +8,13 @@
 			<div class="card-body">
 				<ul class="list-group">
 					<c:if test="${inputError==true}">
-						<i>Username/password is too short!</i>
+						<i>Error! Username already exists.</i>
 					</c:if>
 					<c:if test="${inputError2==true}">
-						<i>Invalid public service ID!</i>
+						<i>Error! Username/password is too short/empty.</i>
+					</c:if>
+					<c:if test="${inputError3==true}">
+						<i>Error! Invalid public service ID.</i>
 					</c:if>
 					
 					<form:form action="${pageContext.request.contextPath}/supervisor/createEmployeeForm" method="POST">

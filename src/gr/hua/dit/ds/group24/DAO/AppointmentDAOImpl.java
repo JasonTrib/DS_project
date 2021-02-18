@@ -1,8 +1,6 @@
 package gr.hua.dit.ds.group24.DAO;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,10 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import gr.hua.dit.ds.group24.DateUtils;
 import gr.hua.dit.ds.group24.entity.Appointment;
-import gr.hua.dit.ds.group24.entity.PublicService;
-import gr.hua.dit.ds.group24.entity.User;
 
 @Repository
 public class AppointmentDAOImpl implements AppointmentDAO {
@@ -76,7 +71,6 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("delete from Appointment where ps_id='"+id+"'").executeUpdate();
 	}
-	
 	
 	@Override
 	@Transactional

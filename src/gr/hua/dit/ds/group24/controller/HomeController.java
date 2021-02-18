@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import gr.hua.dit.ds.group24.DAO.AuthoritiesDAO;
-import gr.hua.dit.ds.group24.DAO.PublicServiceDAO;
 import gr.hua.dit.ds.group24.DAO.UserDAO;
 import gr.hua.dit.ds.group24.entity.PublicService;
 import gr.hua.dit.ds.group24.entity.User;
@@ -24,14 +21,8 @@ import gr.hua.dit.ds.group24.service.EntitiesService;
 @RequestMapping("/")
 public class HomeController {
 	@Autowired
-	private PublicServiceDAO psDAO;
-	
-	@Autowired
 	private UserDAO userDAO;
-	
-	@Autowired
-	private AuthoritiesDAO authDAO;
-	
+
 	@Autowired
 	private EntitiesService entitiesService;
 
@@ -62,9 +53,13 @@ public class HomeController {
 			model.addAttribute("pageTitle", "new submission (error)");
 			model.addAttribute("inputError", true);
 			return "submission-form";
-		}else if(user.getUsername().trim().length()<3 || user.getPassword().trim().length()<4) {
+		}else if(userDAO.getUserByUsername(user.getUsername())!=null){
 			model.addAttribute("pageTitle", "new submission (error)");
 			model.addAttribute("inputError2", true);
+			return "submission-form";
+		}else if(user.getUsername().trim().length()<3 || user.getPassword().trim().length()<4) {
+			model.addAttribute("pageTitle", "new submission (error)");
+			model.addAttribute("inputError3", true);
 			return "submission-form";
 		}
 		PublicService ps1 = new PublicService(ps.getName(), ps.getAddress(), ps.getAppointmentRoom(), false, ps.getSchedule(), ps.getPostcode(),ps.getCallCenter());
@@ -87,7 +82,6 @@ public class HomeController {
 		model.addAttribute("users", users);
 		return "admin-page";
 	}
-	
 	
 }
 	

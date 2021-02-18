@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import gr.hua.dit.ds.group24.DAO.AuthoritiesDAO;
 import gr.hua.dit.ds.group24.DAO.PublicServiceDAO;
 import gr.hua.dit.ds.group24.DAO.UserDAO;
 import gr.hua.dit.ds.group24.entity.Authorities;
@@ -29,10 +28,7 @@ public class SupervisorController {
 	
 	@Autowired
 	private UserDAO userDAO;
-	
-	@Autowired
-	private AuthoritiesDAO authDAO;
-	
+
 	@Autowired
 	private EntitiesService entitiesService;
 	
@@ -75,35 +71,30 @@ public class SupervisorController {
 	
 	@PostMapping("/editEmployeeForm")
 	public String editEmployeeForm(Model model, @ModelAttribute("user") User e) {
-//		if(e.getPassword().trim().length()<3) {
-//			model.addAttribute("pageTitle", "edit employee");
-//			model.addAttribute("inputError", true);
-//			return "supervisor/edit-employee-form";
-//		}
-//		e.setPassword(encoder.encode(e.getPassword()));
-//		
-		System.out.println(">>>>>>"+e.toString());
-		
 		userDAO.updateUser(e);
 		return "redirect:/supervisor/employees";
 	}
 	
 	@PostMapping("/createEmployeeForm")
 	public String createEmployeeForm(Model model, @RequestParam(value="psid", required=false) Integer psid, @ModelAttribute("user") User e, Authentication authent) {
-		User thisUser = userDAO.getUserByUsername(authent.getName());
-		if(e.getUsername().trim().length()<3 || e.getPassword().trim().length()<3) {
-			model.addAttribute("pageTitle", "create employee");
+		if(userDAO.getUserByUsername(e.getUsername())!=null) {
+			model.addAttribute("pageTitle", "create employee (error)");
 			model.addAttribute("inputError", true);
 			return "supervisor/create-employee-form";
+		}else if(e.getUsername().trim().length()<3 || e.getPassword().trim().length()<3) {
+			model.addAttribute("pageTitle", "create employee (error)");
+			model.addAttribute("inputError2", true);
+			return "supervisor/create-employee-form";
 		}
+		User thisUser = userDAO.getUserByUsername(authent.getName());
 		User employee;
 		if(thisUser.getTitle().equals("Admin")) {
 			PublicService ps;
 			try {
 				ps = psDAO.getPublicService(psid);
 			}catch(Exception ex) {
-				model.addAttribute("pageTitle", "create employee");
-				model.addAttribute("inputError2", true);
+				model.addAttribute("pageTitle", "create employee (error)");
+				model.addAttribute("inputError3", true);
 				return "supervisor/create-employee-form";
 			}
 			employee = new User(e.getUsername(), encoder.encode(e.getPassword()), true, e.getFullname(), "Employee", e.getEmail(), ps);
@@ -120,8 +111,6 @@ public class SupervisorController {
 		model.addAttribute("pageTitle", "create employee");
 		return "supervisor/create-employee-form";
 	}
-	
-	// logged in as admin (lines 123-143)
 
 	@RequestMapping("/selectPs")
 	public String selectPs(Model model) {
@@ -129,10 +118,8 @@ public class SupervisorController {
 		return "supervisor/selectps";
 	}
 
-
 	@PostMapping("/editPsForm")
-	public String editPsForm2(Model model, @RequestParam(value="id", required=false) Integer id, Authentication authent) {
-		User thisUser = userDAO.getUserByUsername(authent.getName());
+	public String editPsForm2(Model model, @RequestParam(value="id", required=false) Integer id) {
 		PublicService publicservice;
 		try {
 			publicservice = psDAO.getPublicService(id);
@@ -144,9 +131,6 @@ public class SupervisorController {
 		model.addAttribute("publicservice", publicservice);
 		return "supervisor/publicservices-edit";
 	}
-
-
-		// logged in as supervisor (lines 147-163)
 
 	@RequestMapping("/editPs")
 	public String editPservice(Model model, Authentication auth) {
@@ -160,9 +144,6 @@ public class SupervisorController {
 	@PostMapping("/editPublicServicesForm")
 	public String editPsForm(Model model, @ModelAttribute("publicservice") PublicService ps) {
 		model.addAttribute("pageTitle", "edit public service");
-		
-		System.out.println(">>>>>>"+ps.toString());
-		
 		psDAO.updatePublicService(ps);
 		return "redirect:/supervisor";
 		}
