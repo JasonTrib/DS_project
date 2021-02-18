@@ -24,7 +24,7 @@ public class PublicServiceDAOImpl implements PublicServiceDAO {
 		Query<PublicService> query = session.createQuery("from PublicService where validated=true", PublicService.class);
 		return query.getResultList();
 	}
-	
+
 	@Override
 	@Transactional
 	public PublicService getPublicService(Integer id) {
@@ -42,9 +42,16 @@ public class PublicServiceDAOImpl implements PublicServiceDAO {
 
 	@Override
 	@Transactional
-	public void updatePublicService(PublicService ps){
+	public void validatePublicService(PublicService ps){
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("update PublicService set name='"+ps.getName()+"',address='"+ps.getAddress()+"',appointment_room='"+ps.getAppointmentRoom()+"',validated='"+(ps.isValidated()?1:0)+"',schedule='"+ps.getSchedule()+"',postcode='"+ps.getPostcode()+"',call_center='"+ps.getCallCenter()+"' where id='"+ps.getId()+"'").executeUpdate();
+	}
+	
+	@Override
+	@Transactional
+	public void updatePublicService(PublicService ps){
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("update PublicService set address='"+ps.getAddress()+"',appointment_room='"+ps.getAppointmentRoom()+"',schedule='"+ps.getSchedule()+"',postcode="+ps.getPostcode()+",call_center="+ps.getCallCenter()+" where id='"+ps.getId()+"'").executeUpdate();
 	}
 	
 	@Override

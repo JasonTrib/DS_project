@@ -75,12 +75,15 @@ public class SupervisorController {
 	
 	@PostMapping("/editEmployeeForm")
 	public String editEmployeeForm(Model model, @ModelAttribute("user") User e) {
-		if(e.getPassword().trim().length()<3) {
-			model.addAttribute("pageTitle", "edit employee");
-			model.addAttribute("inputError", true);
-			return "supervisor/edit-employee-form";
-		}
-		e.setPassword(encoder.encode(e.getPassword()));
+//		if(e.getPassword().trim().length()<3) {
+//			model.addAttribute("pageTitle", "edit employee");
+//			model.addAttribute("inputError", true);
+//			return "supervisor/edit-employee-form";
+//		}
+//		e.setPassword(encoder.encode(e.getPassword()));
+//		
+		System.out.println(">>>>>>"+e.toString());
+		
 		userDAO.updateUser(e);
 		return "redirect:/supervisor/employees";
 	}
@@ -118,4 +121,49 @@ public class SupervisorController {
 		return "supervisor/create-employee-form";
 	}
 	
+	// logged in as admin (lines 123-143)
+
+	@RequestMapping("/selectPs")
+	public String selectPs(Model model) {
+		model.addAttribute("pageTitle", "select public service");
+		return "supervisor/selectps";
+	}
+
+
+	@PostMapping("/editPsForm")
+	public String editPsForm2(Model model, @RequestParam(value="id", required=false) Integer id, Authentication authent) {
+		User thisUser = userDAO.getUserByUsername(authent.getName());
+		PublicService publicservice;
+		try {
+			publicservice = psDAO.getPublicService(id);
+		} catch(Exception ex) {
+			model.addAttribute("pageTitle", "edit");
+			model.addAttribute("inputError2", true);
+			return "supervisor/selectps";
+		}
+		model.addAttribute("publicservice", publicservice);
+		return "supervisor/publicservices-edit";
+	}
+
+
+		// logged in as supervisor (lines 147-163)
+
+	@RequestMapping("/editPs")
+	public String editPservice(Model model, Authentication auth) {
+		model.addAttribute("pageTitle", "edit public service");
+		User supervisor = userDAO.getUserByUsername(auth.getName());
+		PublicService publicservice = psDAO.getPublicService(supervisor.getPs().getId());
+		model.addAttribute("publicservice", publicservice);
+		return "supervisor/publicservices-edit";
+	}
+
+	@PostMapping("/editPublicServicesForm")
+	public String editPsForm(Model model, @ModelAttribute("publicservice") PublicService ps) {
+		model.addAttribute("pageTitle", "edit public service");
+		
+		System.out.println(">>>>>>"+ps.toString());
+		
+		psDAO.updatePublicService(ps);
+		return "redirect:/supervisor";
+		}
 }

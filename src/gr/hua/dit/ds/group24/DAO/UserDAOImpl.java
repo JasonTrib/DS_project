@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO {
 	@Transactional
 	public void updateUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		session.createQuery("update User set password='"+user.getPassword()+"',fullname='"+user.getFullname()+"',email='"+user.getEmail()+"'  where username='"+user.getUsername()+"'").executeUpdate();
+		session.createQuery("update User set fullname='"+user.getFullname()+"',email='"+user.getEmail()+"'  where username='"+user.getUsername()+"'").executeUpdate();
 	}
 	
 	@Override

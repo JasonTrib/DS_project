@@ -42,7 +42,7 @@ public class EntitiesServiceImpl implements EntitiesService {
 	@Transactional
 	public void acceptSubmission(PublicService ps, User user){
 		ps.setValidated(true);
-		psDAO.updatePublicService(ps);
+		psDAO.validatePublicService(ps);
 		user.setTitle("Supervisor");
 		Authorities auth = new Authorities("ROLE_SUPERVISOR",user);
 		userDAO.updateUser(user);

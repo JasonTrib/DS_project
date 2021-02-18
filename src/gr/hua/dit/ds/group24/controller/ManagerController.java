@@ -78,12 +78,12 @@ public class ManagerController {
 	
 	@PostMapping("/supervisors/editForm")
 	public String editSupervisorForm(Model model, @ModelAttribute("user") User user) {
-		if(user.getPassword().trim().length()<3) {
-			model.addAttribute("pageTitle", "edit supervisors");
-			model.addAttribute("inputError", true);
-			return "manager/supervisors-edit";
-		}
-		user.setPassword(encoder.encode(user.getPassword()));
+//		if(user.getPassword().trim().length()<3) {
+//			model.addAttribute("pageTitle", "edit supervisors");
+//			model.addAttribute("inputError", true);
+//			return "manager/supervisors-edit";
+//		}
+//		user.setPassword(encoder.encode(user.getPassword()));
 		userDAO.updateUser(user);
 		return "redirect:/manager/supervisors";	
 	}
@@ -91,7 +91,6 @@ public class ManagerController {
 	@GetMapping("/delete-publicservice")
 	public String deleteps(@RequestParam("id") Integer id) {
 		entitiesService.deletePublicServiceAppointment(id);
-//		psDAO.deletePublicService(id);
 		return "redirect:/manager/public_services";
 	}
 	
